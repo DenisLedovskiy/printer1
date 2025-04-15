@@ -5,10 +5,10 @@ final class AppLaunch {
     private var window: UIWindow?
 
     func launch() {
-        welcomeScreen()
+//        welcomeScreen()
 
 //        if UserSet.isNotFirstEnter ?? false {
-//            startMainScene()
+            startMainScene()
 //        } else {
 //            UserSet.isShowedLikeIt = false
 //            UserSet.isFirstIconSet = true
@@ -22,10 +22,10 @@ final class AppLaunch {
         makeController(vc)
     }
 
-//    func startMainScene() {
-//        let vc = makeTabBarController()
-//        showController(vc)
-//    }
+    func startMainScene() {
+        let vc = configTabBarVC()
+        makeController(vc)
+    }
 
     private func makeController(_ controller: UIViewController) {
         let window = AppDelegate.appDelegate.window ?? UIWindow(frame: UIScreen.main.bounds)
@@ -39,16 +39,17 @@ final class AppLaunch {
 }
 
 extension AppLaunch {
-//    private func makeTabBarController() -> UITabBarController {
-//        let tabBarController = PTabBar()
-//        tabBarController.viewControllers = [createVC(MainInit.createViewController()),
-//                                            createVC(SettingsInit.createViewController())
-//        ]
-//        return tabBarController
-//    }
-//
-//    func createVC(_ vc: UIViewController) -> UIViewController {
-//        let navigationController = UINavigationController(rootViewController: vc)
-//        return navigationController
-//    }
+    private func configTabBarVC() -> UITabBarController {
+        let tabBarVC = AppTabBar()
+        tabBarVC.viewControllers = [createVC(ImportInit.createViewController()),
+                                            createVC(HistoryInit.createViewController()),
+                                            createVC(SettingInit.createViewController())
+        ]
+        return tabBarVC
+    }
+
+    func createVC(_ vc: UIViewController) -> UIViewController {
+        let navigationController = UINavigationController(rootViewController: vc)
+        return navigationController
+    }
 }

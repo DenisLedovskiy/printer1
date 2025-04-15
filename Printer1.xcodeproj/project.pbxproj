@@ -6,8 +6,16 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		92E446862DAED9C30061EB78 /* ApphudSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 92E446852DAED9C30061EB78 /* ApphudSDK */; };
+		92E446892DAED9ED0061EB78 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 92E446882DAED9ED0061EB78 /* SnapKit */; };
+		92E4468C2DAEDA140061EB78 /* PanModal in Frameworks */ = {isa = PBXBuildFile; productRef = 92E4468B2DAEDA140061EB78 /* PanModal */; };
+		92E4468E2DAEDA210061EB78 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E4468D2DAEDA210061EB78 /* Config.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		92E445792DAECEA10061EB78 /* Printer1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Printer1.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		92E4468D2DAEDA210061EB78 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -36,6 +44,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92E446862DAED9C30061EB78 /* ApphudSDK in Frameworks */,
+				92E446892DAED9ED0061EB78 /* SnapKit in Frameworks */,
+				92E4468C2DAEDA140061EB78 /* PanModal in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -45,6 +56,7 @@
 		92E445702DAECEA10061EB78 = {
 			isa = PBXGroup;
 			children = (
+				92E4468D2DAEDA210061EB78 /* Config.swift */,
 				92E4457B2DAECEA10061EB78 /* Printer1 */,
 				92E4457A2DAECEA10061EB78 /* Products */,
 			);
@@ -78,6 +90,9 @@
 			);
 			name = Printer1;
 			packageProductDependencies = (
+				92E446852DAED9C30061EB78 /* ApphudSDK */,
+				92E446882DAED9ED0061EB78 /* SnapKit */,
+				92E4468B2DAEDA140061EB78 /* PanModal */,
 			);
 			productName = Printer1;
 			productReference = 92E445792DAECEA10061EB78 /* Printer1.app */;
@@ -107,6 +122,11 @@
 			);
 			mainGroup = 92E445702DAECEA10061EB78;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				92E446842DAED9C30061EB78 /* XCRemoteSwiftPackageReference "ApphudSDK" */,
+				92E446872DAED9ED0061EB78 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				92E4468A2DAEDA140061EB78 /* XCRemoteSwiftPackageReference "PanModal" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 92E4457A2DAECEA10061EB78 /* Products */;
 			projectDirPath = "";
@@ -132,6 +152,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92E4468E2DAEDA210061EB78 /* Config.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,6 +280,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -315,6 +337,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -341,6 +364,51 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		92E446842DAED9C30061EB78 /* XCRemoteSwiftPackageReference "ApphudSDK" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apphud/ApphudSDK";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.6.2;
+			};
+		};
+		92E446872DAED9ED0061EB78 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+		92E4468A2DAEDA140061EB78 /* XCRemoteSwiftPackageReference "PanModal" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/slackhq/PanModal.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.7;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		92E446852DAED9C30061EB78 /* ApphudSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 92E446842DAED9C30061EB78 /* XCRemoteSwiftPackageReference "ApphudSDK" */;
+			productName = ApphudSDK;
+		};
+		92E446882DAED9ED0061EB78 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 92E446872DAED9ED0061EB78 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		92E4468B2DAEDA140061EB78 /* PanModal */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 92E4468A2DAEDA140061EB78 /* XCRemoteSwiftPackageReference "PanModal" */;
+			productName = PanModal;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 92E445712DAECEA10061EB78 /* Project object */;
 }
