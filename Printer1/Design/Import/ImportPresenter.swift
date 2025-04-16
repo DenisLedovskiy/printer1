@@ -2,6 +2,7 @@ import UIKit
 
 protocol ImportPresenterInterface {
     func viewDidLoad(withView view: ImportPresenterOutputInterface)
+    func selectAddPrinter()
 }
 
 final class ImportPresenter: NSObject {
@@ -17,6 +18,10 @@ final class ImportPresenter: NSObject {
 // MARK: - ImportPresenterInterface
 
 extension ImportPresenter: ImportPresenterInterface {
+    func selectAddPrinter() {
+        router.routeAddPrinter()
+    }
+    
     func viewDidLoad(withView view: ImportPresenterOutputInterface) {
         self.view = view
     }

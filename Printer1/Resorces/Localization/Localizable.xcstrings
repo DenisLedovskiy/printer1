@@ -1,6 +1,50 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "Add a Printer" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a Printer"
+          }
+        }
+      }
+    },
+    "Add documents" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add documents"
+          }
+        }
+      }
+    },
+    "Add your first document" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add your first document"
+          }
+        }
+      }
+    },
+    "Air Printer" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Air Printer"
+          }
+        }
+      }
+    },
     "Auto Printer" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -56,6 +100,17 @@
         }
       }
     },
+    "Double-check that your printer is on and connected, then try again" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Double-check that your printer is on and connected, then try again"
+          }
+        }
+      }
+    },
     "Ease" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -63,6 +118,39 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ease"
+          }
+        }
+      }
+    },
+    "Files" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Files"
+          }
+        }
+      }
+    },
+    "From Web pages" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "From Web pages"
+          }
+        }
+      }
+    },
+    "From your Camera " : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "From your Camera "
           }
         }
       }
@@ -78,6 +166,17 @@
         }
       }
     },
+    "History" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "History"
+          }
+        }
+      }
+    },
     "import" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -85,6 +184,83 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "import"
+          }
+        }
+      }
+    },
+    "Import Files" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import Files"
+          }
+        }
+      }
+    },
+    "Looking for Printers..." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Looking for Printers..."
+          }
+        }
+      }
+    },
+    "Need help connecting " : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Need help connecting "
+          }
+        }
+      }
+    },
+    "No connected" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No connected"
+          }
+        }
+      }
+    },
+    "No files found" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No files found"
+          }
+        }
+      }
+    },
+    "No Printer selected" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Printer selected"
+          }
+        }
+      }
+    },
+    "No printers found" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No printers found"
           }
         }
       }
@@ -100,6 +276,17 @@
         }
       }
     },
+    "Photos" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Photos"
+          }
+        }
+      }
+    },
     "Print" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -107,6 +294,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Print"
+          }
+        }
+      }
+    },
+    "Print from Files" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Print from Files"
+          }
+        }
+      }
+    },
+    "Print from Gallery" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Print from Gallery"
           }
         }
       }
@@ -144,6 +353,28 @@
         }
       }
     },
+    "Ready to Print" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ready to Print"
+          }
+        }
+      }
+    },
+    "Refresh" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Refresh"
+          }
+        }
+      }
+    },
     "Restore" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -173,6 +404,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Scan your documents in high quality with just one tap"
+          }
+        }
+      }
+    },
+    "Select" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select"
+          }
+        }
+      }
+    },
+    "Select a printer model first to release the print job" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select a printer model first to release the print job"
           }
         }
       }
@@ -243,6 +496,17 @@
         }
       }
     },
+    "Visit the [FAQ] for step-by-step guidance" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Visit the [FAQ] for step-by-step guidance"
+          }
+        }
+      }
+    },
     "We appreciate your feedback and strive to improve our product" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -261,6 +525,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "We’ll automatically find your printer and connect in seconds"
+          }
+        }
+      }
+    },
+    "Web pages" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Web pages"
           }
         }
       }
