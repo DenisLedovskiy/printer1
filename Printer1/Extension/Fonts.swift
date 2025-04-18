@@ -2,11 +2,14 @@ import UIKit
 
 enum Fonts {
     case dmSans
+    case jacarta
 
     var prefix: String {
         switch self {
         case .dmSans:
             return "DMSans-"
+        case .jacarta:
+            return "PlusJakartaSans"
         }
     }
 }
@@ -46,5 +49,9 @@ extension UIFont {
 
     static func dmSans(_ type: UIFont.Weight, size: CGFloat) -> UIFont {
         return getFont(type, size: size, fontFamily: .dmSans)
+    }
+
+    static func jacarta(_ type: UIFont.Weight, size: CGFloat) -> UIFont {
+        return getFont(type, size: size, fontFamily: .jacarta)
     }
 }

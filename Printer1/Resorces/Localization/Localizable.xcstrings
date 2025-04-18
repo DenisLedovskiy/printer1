@@ -1,6 +1,17 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "Access all tools" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Access all tools"
+          }
+        }
+      }
+    },
     "Add a Printer" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -56,6 +67,17 @@
         }
       }
     },
+    "Browser" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Browser"
+          }
+        }
+      }
+    },
     "by users" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -67,6 +89,17 @@
         }
       }
     },
+    "Cancel" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
     "Continue" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -74,6 +107,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Continue"
+          }
+        }
+      }
+    },
+    "Delete" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
           }
         }
       }
@@ -118,6 +162,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ease"
+          }
+        }
+      }
+    },
+    "FAQ" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FAQ"
           }
         }
       }
@@ -353,6 +408,17 @@
         }
       }
     },
+    "Privacy Policy" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacy Policy"
+          }
+        }
+      }
+    },
     "Ready to Print" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -452,6 +518,28 @@
         }
       }
     },
+    "Share" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share"
+          }
+        }
+      }
+    },
+    "Share link" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share link"
+          }
+        }
+      }
+    },
     "Sorry" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -459,6 +547,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sorry"
+          }
+        }
+      }
+    },
+    "Switch icon" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Switch icon"
           }
         }
       }
@@ -474,6 +573,17 @@
         }
       }
     },
+    "Terms of Use" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terms of Use"
+          }
+        }
+      }
+    },
     "Trusted" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -485,6 +595,17 @@
         }
       }
     },
+    "Try now" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Try now"
+          }
+        }
+      }
+    },
     "Unlimited prints, faster processing, storage for your documents for" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -492,6 +613,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Unlimited prints, faster processing, storage for your documents for %@"
+          }
+        }
+      }
+    },
+    "Unlock full access" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlock full access"
+          }
+        }
+      }
+    },
+    "View" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View"
           }
         }
       }

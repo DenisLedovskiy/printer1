@@ -108,6 +108,8 @@ final class AddPrinterVC: GeneralViewController {
     //MARK: -  Lifecicle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        hideTabBar(true)
+        hideNavBar(true)
     }
 
     override func viewDidLoad() {

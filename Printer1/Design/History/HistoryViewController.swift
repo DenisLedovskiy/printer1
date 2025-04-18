@@ -9,12 +9,12 @@ final class HistoryViewController: GeneralViewController {
     private var presenter: HistoryPresenterInterface?
     private var router: HistoryRouterInterface?
 
-//    private var sections: [ImportSection] = ImportSection.makeSection()
-//    private lazy var dataSource = makeDataSource()
+    private var sections: [HistorySection] = [HistorySection]()
+    private lazy var dataSource = makeDataSource()
 
     // MARK: - Value Types
-//    typealias DataSource = UICollectionViewDiffableDataSource<ImportSection, ImportCellModel>
-//    typealias Snapshot = NSDiffableDataSourceSnapshot<ImportSection, ImportCellModel>
+    typealias DataSource = UICollectionViewDiffableDataSource<HistorySection, HistoryCellModel>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<HistorySection, HistoryCellModel>
 
     //MARK: - UI Propery
 
@@ -32,6 +32,10 @@ final class HistoryViewController: GeneralViewController {
 
     private lazy var emptyView: EmptyHis = {
         let view = EmptyHis()
+        view.didAddSelect = {
+            self.selectAdd()
+        }
+        view.isHidden = true
         return view
     }()
 
@@ -40,9 +44,8 @@ final class HistoryViewController: GeneralViewController {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = .clear
-        collectionView.isScrollEnabled = false
         collectionView.delegate = self
-        ImportCell.register(collectionView)
+        HistoryCell.register(collectionView)
         return collectionView
     }()
 
@@ -69,6 +72,13 @@ final class HistoryViewController: GeneralViewController {
         super.viewDidLoad()
         customInit()
         presenter?.viewDidLoad(withView: self)
+
+        let items = [HistoryCellModel(date: "10/04/2025 12:00", title: "dsd asdasfdf asfasf asf a", type: "DOC"),
+                     HistoryCellModel(date: "10/04/2025 12:00", title: "dsd asdasfdf asfasf asf a", type: "DOcX"),
+                     HistoryCellModel(date: "10/04/2025 12:00", title: "dsd asdasfdf asfasf asf a", type: "xlxs"),
+                     HistoryCellModel(date: "10/04/2025 12:00", title: "dsd asdasfdf asfasf asf a", type: "pdf")]
+        let sections = HistorySection.makeSection(items)
+        self.setSections(sections)
     }
 }
 
@@ -78,74 +88,150 @@ extension HistoryViewController: HistoryPresenterOutputInterface {
 
 }
 
+// MARK: - Action
+
+private extension HistoryViewController {
+
+    func selectAdd() {
+        tabBar?.setHomeScreen()
+    }
+}
+
+//MARK: - Sheet menu
+private extension HistoryViewController {
+    func presentSheet() {
+        let alertStyle = UIAlertController.Style.actionSheet
+
+        let alert = UIAlertController(title: nil,
+                                      message: nil,
+                                      preferredStyle: alertStyle)
+
+        alert.addAction(UIAlertAction(title: perevod("View"),
+                                      style: .default,
+                                      handler: { (UIAlertAction) in
+            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+
+        }))
+        alert.addAction(UIAlertAction(title: perevod("Share"),
+                                      style: .default,
+                                      handler:{ (UIAlertAction) in
+            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+
+        }))
+        alert.addAction(UIAlertAction(title: perevod("Print"),
+                                      style: .default,
+                                      handler:{ (UIAlertAction)in
+            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+
+        }))
+        alert.addAction(UIAlertAction(title: perevod("Delete"),
+                                      style: .destructive,
+                                      handler:{ (UIAlertAction)in
+            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+
+        }))
+
+        alert.addAction(UIAlertAction(title: perevod("Cancel"),
+                                      style: .cancel,
+                                      handler: nil))
+
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: { })
+        }
+    }
+}
+
+
 //MARK: - Collection
 
-//private extension ImportViewController {
-//
-//    // MARK: - makeDataSource
-//    private func makeDataSource() -> DataSource {
-//        let dataSource = DataSource(
-//            collectionView: collectionView,
-//            cellProvider: { (collectionView, indexPath, item) ->
-//                UICollectionViewCell? in
-//                let cell = ImportCell.getCell(collectionView, for: indexPath)
-//                cell.setCell(item)
-//                return cell
-//            })
-//        return dataSource
-//    }
-//
-//    // MARK: - makeLayout
-//    func makeLayout() -> UICollectionViewCompositionalLayout {
-//        let configuration = UICollectionViewCompositionalLayoutConfiguration()
-//
-//        return UICollectionViewCompositionalLayout(sectionProvider: { [self] section, _ in
-//            setGrid(ImportCell.size)
-//        }, configuration: configuration)
-//    }
-//
-//    func setGrid(_ size: CGSize) -> NSCollectionLayoutSection {
-//
-//        let itemSize = NSCollectionLayoutSize(widthDimension: .absolute(size.width),
-//                                              heightDimension: .absolute(size.height))
-//        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-//
-//        let groupSize = NSCollectionLayoutSize(
-//            widthDimension: .fractionalWidth(1.0),
-//            heightDimension: .absolute(size.height))
-//        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, repeatingSubitem: item, count: 2)
-//        group.interItemSpacing = .fixed(16)
-//
-//        let section = NSCollectionLayoutSection(group: group)
-//        section.interGroupSpacing = 20
-//        section.contentInsets = .init(top: 0,
-//                                      leading: 22,
-//                                      bottom: 0,
-//                                      trailing: 22)
-//        return section
-//    }
-//
-//    private func applySnapshot(animatingDifferences: Bool = true) {
-//        var snapshot = Snapshot()
-//        snapshot.appendSections(sections)
-//        sections.forEach { section in
-//            snapshot.appendItems(section.items, toSection: section)
-//        }
-//        dataSource.apply(snapshot, animatingDifferences: animatingDifferences)
-//    }
-//}
+private extension HistoryViewController {
 
+    // MARK: - makeDataSource
+    private func makeDataSource() -> DataSource {
+        let dataSource = DataSource(
+            collectionView: collectionView,
+            cellProvider: { (collectionView, indexPath, item) ->
+                UICollectionViewCell? in
+                let cell = HistoryCell.getCell(collectionView, for: indexPath)
+                cell.setCell(item)
+                return cell
+            })
+        return dataSource
+    }
+
+    // MARK: - makeLayout
+    func makeLayout() -> UICollectionViewCompositionalLayout {
+        let configuration = UICollectionViewCompositionalLayoutConfiguration()
+
+        return UICollectionViewCompositionalLayout(sectionProvider: { [self] section, _ in
+            setGrid(HistoryCell.size)
+        }, configuration: configuration)
+    }
+
+    func setGrid(_ size: CGSize) -> NSCollectionLayoutSection {
+
+        let itemSize = NSCollectionLayoutSize(widthDimension: .absolute(size.width),
+                                              heightDimension: .absolute(size.height))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .absolute(size.height))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, repeatingSubitem: item, count: 2)
+        group.interItemSpacing = .fixed(16)
+
+        let section = NSCollectionLayoutSection(group: group)
+        section.interGroupSpacing = 20
+        section.contentInsets = .init(top: 0,
+                                      leading: 22,
+                                      bottom: 0,
+                                      trailing: 22)
+        return section
+    }
+
+    private func setSections(_ section: [HistorySection]) {
+        self.sections = section
+        applySnapshot()
+    }
+
+    private func applySnapshot(animatingDifferences: Bool = true) {
+        var snapshot = Snapshot()
+        snapshot.appendSections(sections)
+        sections.forEach { section in
+            snapshot.appendItems(section.items, toSection: section)
+        }
+        dataSource.apply(snapshot, animatingDifferences: animatingDifferences)
+    }
+}
+
+//MARK: - UICollectionViewDelegate
+
+extension HistoryViewController: UICollectionViewDelegate {
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+//        presenter?.needShowDocument(indexPath.row)
+        presentSheet()
+    }
+}
 
 // MARK: - UISetup
 
 private extension HistoryViewController {
     func customInit() {
         view.addSubview(titleLabel)
-        view.addSubview(<#T##view: UIView##UIView#>)
+        view.addSubview(emptyView)
+        view.addSubview(collectionView)
 
         titleLabel.snp.makeConstraints({
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(isSmallPhone ? 24 : 36)
             $0.leading.trailing.equalToSuperview().inset(22)
+        })
+
+        emptyView.snp.makeConstraints({
+            $0.top.equalTo(titleLabel.snp.bottom)
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         })
 
         collectionView.snp.makeConstraints({

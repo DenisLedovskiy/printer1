@@ -10,9 +10,8 @@ final class AppLaunch {
 //        if UserSet.isNotFirstEnter ?? false {
             startMainScene()
 //        } else {
-//            UserSet.isShowedLikeIt = false
-//            UserSet.isFirstIconSet = true
-//            UserSet.isWasSuccesMove = false
+
+//        UserInfoManager.isFirstIconSet = true
 //            goOnboardingScreen()
 //        }
     }

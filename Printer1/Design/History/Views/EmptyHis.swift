@@ -13,6 +13,8 @@ final class EmptyHis: UIView {
 //    case .small: 84
 //    }
 
+    var didAddSelect: (() -> ())?
+
     private let iconView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = .hisEmpty
@@ -47,7 +49,7 @@ final class EmptyHis: UIView {
     private lazy var addButton: GradientButton = {
         let button = GradientButton()
         button.setTitle(perevod("Add documents"))
-//        button.addTarget(self, action: #selector(tapContinue), for: .touchUpInside)
+        button.addTarget(self, action: #selector(tapAdd), for: .touchUpInside)
 
         button.setCornerRadius(20)
 
@@ -72,6 +74,10 @@ final class EmptyHis: UIView {
 
 private extension EmptyHis {
 
+    @objc func tapAdd() {
+        didAddSelect?()
+    }
+
     func setup() {
         backgroundColor = .clear
         layer.cornerRadius = 22
@@ -84,6 +90,7 @@ private extension EmptyHis {
         addSubview(iconView)
         addSubview(titleLabel)
         addSubview(descLabel)
+        addSubview(addButton)
 
         iconView.snp.makeConstraints({
             $0.top.equalToSuperview().offset(102)
@@ -102,6 +109,12 @@ private extension EmptyHis {
             $0.top.equalTo(titleLabel.snp.bottom).offset(6)
             $0.leading.equalToSuperview().offset(28)
             $0.trailing.equalToSuperview().inset(28)
+        })
+
+        addButton.snp.makeConstraints({
+            $0.height.equalTo(addButton.height)
+            $0.leading.trailing.equalToSuperview().inset(59)
+            $0.top.equalTo(descLabel.snp.bottom).offset(30)
         })
     }
 }

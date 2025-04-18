@@ -119,6 +119,18 @@ final class AppTabBar: UITabBarController {
         tabCustomView.isHidden = isHidden
         tabBar.isHidden = isHidden
     }
+
+    func setHomeScreen() {
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+
+        selectedIndex = 0
+        importIcon.image = .importOn
+        importLabel.textColor = .prBlack
+        settingsIcon.image = .settingOff
+        settingsLabel.textColor = .tabUnselect
+        historyIcon.image = .historyOff
+        historyLabel.textColor = .tabUnselect
+    }
 }
 
 private extension AppTabBar {

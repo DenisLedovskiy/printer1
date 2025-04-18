@@ -166,6 +166,11 @@ extension ImportViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
 //        presenter?.needShowDocument(indexPath.row)
+
+        switch indexPath.row {
+        case 3: presenter?.selectBroweser()
+        default: return
+        }
     }
 }
 

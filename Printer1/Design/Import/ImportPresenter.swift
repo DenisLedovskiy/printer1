@@ -3,6 +3,7 @@ import UIKit
 protocol ImportPresenterInterface {
     func viewDidLoad(withView view: ImportPresenterOutputInterface)
     func selectAddPrinter()
+    func selectBroweser()
 }
 
 final class ImportPresenter: NSObject {
@@ -18,6 +19,10 @@ final class ImportPresenter: NSObject {
 // MARK: - ImportPresenterInterface
 
 extension ImportPresenter: ImportPresenterInterface {
+    func selectBroweser() {
+        router.routeBroweser()
+    }
+    
     func selectAddPrinter() {
         router.routeAddPrinter()
     }
