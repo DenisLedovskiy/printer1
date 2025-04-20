@@ -34,6 +34,17 @@
         }
       }
     },
+    "add page" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "add page"
+          }
+        }
+      }
+    },
     "Add your first document" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -96,6 +107,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "Check that your printer is turned on and has no error indicators. Restart it to refresh the connection." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check that your printer is turned on and has no error indicators. Restart it to refresh the connection."
           }
         }
       }
@@ -166,6 +188,28 @@
         }
       }
     },
+    "edit" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "edit"
+          }
+        }
+      }
+    },
+    "Ensure the printer isn’t out of paper, ink, or toner." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ensure the printer isn’t out of paper, ink, or toner."
+          }
+        }
+      }
+    },
     "FAQ" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -184,6 +228,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Files"
+          }
+        }
+      }
+    },
+    "For this feature to work, please allow access to the gallery." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "For this feature to work, please allow access to the gallery."
           }
         }
       }
@@ -232,6 +287,17 @@
         }
       }
     },
+    "How to connect to Printer" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How to connect to Printer"
+          }
+        }
+      }
+    },
     "import" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -254,6 +320,28 @@
         }
       }
     },
+    "Lastly, confirm that your printer actually supports AirPrint — not all printers do." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lastly, confirm that your printer actually supports AirPrint — not all printers do."
+          }
+        }
+      }
+    },
+    "Look for any alerts on the printer screen and refer to the user manual to troubleshoot them." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Look for any alerts on the printer screen and refer to the user manual to troubleshoot them."
+          }
+        }
+      }
+    },
     "Looking for Printers..." : {
       "extractionState" : "manual",
       "localizations" : {
@@ -261,6 +349,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Looking for Printers..."
+          }
+        }
+      }
+    },
+    "Make sure your iPhone or iPad and the printer are connected to the same Wi-Fi network." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Make sure your iPhone or iPad and the printer are connected to the same Wi-Fi network."
+          }
+        }
+      }
+    },
+    "Make sure your printer is powered on and in range of your Wi-Fi network" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Make sure your printer is powered on and in range of your Wi-Fi network"
           }
         }
       }
@@ -338,6 +448,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Photos"
+          }
+        }
+      }
+    },
+    "print" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "print"
           }
         }
       }
@@ -485,6 +606,17 @@
         }
       }
     },
+    "Select “Add a printer” and choose your wireless printer from the list" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select “Add a printer” and choose your wireless printer from the list"
+          }
+        }
+      }
+    },
     "Select a printer model first to release the print job" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -584,6 +716,17 @@
         }
       }
     },
+    "There are currently seven supported formats: doc, docx, xls, xIsx, ppt, pptx, pdf." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There are currently seven supported formats: doc, docx, xls, xIsx, ppt, pptx, pdf."
+          }
+        }
+      }
+    },
     "Trusted" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -602,6 +745,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Try now"
+          }
+        }
+      }
+    },
+    "Unable to find your printer" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unable to find your printer"
           }
         }
       }
@@ -628,6 +782,17 @@
         }
       }
     },
+    "Use the printer’s control panel to connect it to your Wi-Fi network. Ensure the printer is within range of the wireless router for successful communication" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use the printer’s control panel to connect it to your Wi-Fi network. Ensure the printer is within range of the wireless router for successful communication"
+          }
+        }
+      }
+    },
     "View" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -650,6 +815,17 @@
         }
       }
     },
+    "Visit your printer manufacturer’s website to see if a firmware update is available — even new printers may require one." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Visit your printer manufacturer’s website to see if a firmware update is available — even new printers may require one."
+          }
+        }
+      }
+    },
     "We appreciate your feedback and strive to improve our product" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -657,6 +833,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "We appreciate your feedback and strive to improve our product"
+          }
+        }
+      }
+    },
+    "We support over 7,000 popular printer models from leading brands, including: HP, Canon, Epson, Brother, Polono, Aurora, Dell, Develop, Fuji, Gestetner, Infotec, Konica, Lanier, Lexmark, MI, NRG, OKI, Olivetti, Panasonic, Pantum, Ricoh, Samsung, Savin, Sharp, Sindoh, TA, Toshiba, Xerox, ZINK, and more. Supported printer models:" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "We support over 7,000 popular printer models from leading brands, including: HP, Canon, Epson, Brother, Polono, Aurora, Dell, Develop, Fuji, Gestetner, Infotec, Konica, Lanier, Lexmark, MI, NRG, OKI, Olivetti, Panasonic, Pantum, Ricoh, Samsung, Savin, Sharp, Sindoh, TA, Toshiba, Xerox, ZINK, and more. Supported printer models:"
           }
         }
       }
@@ -679,6 +866,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Web pages"
+          }
+        }
+      }
+    },
+    "What document formats are currently available for printing" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What document formats are currently available for printing"
+          }
+        }
+      }
+    },
+    "Which printing devices are supported" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Which printing devices are supported"
           }
         }
       }

@@ -1,16 +1,20 @@
 import UIKit
+import WebKit
+import QuickLook
 
 protocol HistoryPresenterOutputInterface: AnyObject {
 
 }
 
-final class HistoryViewController: GeneralViewController {
+final class HistoryViewController: GeneralViewController, QLPreviewControllerDataSource {
 
     private var presenter: HistoryPresenterInterface?
     private var router: HistoryRouterInterface?
 
     private var sections: [HistorySection] = [HistorySection]()
     private lazy var dataSource = makeDataSource()
+
+    var fileURL: URL!
 
     // MARK: - Value Types
     typealias DataSource = UICollectionViewDiffableDataSource<HistorySection, HistoryCellModel>
@@ -80,6 +84,18 @@ final class HistoryViewController: GeneralViewController {
         let sections = HistorySection.makeSection(items)
         self.setSections(sections)
     }
+
+
+    // MARK: - QLPreviewControllerDataSource
+
+    func numberOfPreviewItems(in controller: QLPreviewController) -> Int {
+        return 1
+    }
+
+    func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
+        return fileURL as QLPreviewItem
+    }
+
 }
 
 // MARK: - HistoryPresenterOutputInterface
@@ -211,7 +227,60 @@ extension HistoryViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
 //        presenter?.needShowDocument(indexPath.row)
-        presentSheet()
+//        presentSheet()
+
+//        samplePP pptx
+//        docdoc docx
+// samplePDF pdf
+
+        let vc = PreviewInit.createViewController(file: FileModel(id: UUID(),
+                                                                  title: "NDA",
+                                                                  type: "docx",
+                                                                  date: Date()))
+        navigationController?.pushViewController(vc, animated: true)
+
+//        if let fileUrl = Bundle.main.url(forResource: "samplePP", withExtension: "pptx") {
+//            print("URL файла: \(fileUrl.absoluteString)")
+//
+//
+//            let interactionController = UIDocumentInteractionController(url: fileUrl)
+//            interactionController.delegate = self
+//            interactionController.presentPreview(animated: true)
+//            interactionController.presentOptionsMenu(from: CGRect.zero, in: self.view, animated: true)
+
+//            interactionController.presentOpenInMenu(from: CGRect.zero, in: self.view, animated: true)
+
+
+//            fileURL = fileUrl
+//            let previewController = QLPreviewController()
+//            previewController.dataSource = self
+//            present(previewController, animated: true, completion: nil)
+//        } else {
+//            print("Файл 'samplePP.pptx' не найден")
+//        }
+
+
+//        if let path = Bundle.main.path(forResource: "samplePP", ofType: "pptx") {
+//            print("Путь к файлу: \(path)")
+
+//            let webView = WKWebView(frame: view.bounds)
+//            let url = URL(fileURLWithPath: path)
+//            let request = URLRequest(url: url)
+//            webView.load(request)
+//            view.addSubview(webView)
+
+
+//            if let url = URL(string: path) {
+//                fileURL = url
+//                let previewController = QLPreviewController()
+//                previewController.dataSource = self
+//                present(previewController, animated: true, completion: nil)
+//
+//            }
+
+//        } else {
+//            print("Файл 'import.xls' не найден.")
+//        }
     }
 }
 

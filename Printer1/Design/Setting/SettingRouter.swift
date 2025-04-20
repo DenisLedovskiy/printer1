@@ -7,6 +7,7 @@ protocol SettingRouterInterface: AnyObject {
     func openLink(_ url: URL)
     func openShare(_ url: URL)
     func routeChangeIcon()
+    func routeFAQ()
 }
 
 class SettingRouter: NSObject {
@@ -16,6 +17,13 @@ class SettingRouter: NSObject {
 // MARK: - SettingRouterInterface
 
 extension SettingRouter: SettingRouterInterface {
+    func routeFAQ() {
+        guard let viewController = controller else { return }
+        let vc = FAQVC()
+        vc.modalPresentationStyle = .overFullScreen
+        viewController.present(vc, animated: true)
+    }
+    
     func routeInApp() {
         guard let viewController = controller else { return }
         let vc = InAppInit.createViewController()

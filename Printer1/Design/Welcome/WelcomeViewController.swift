@@ -317,19 +317,11 @@ private extension WelcomeViewController {
             let attributedString1 = NSMutableAttributedString(string: title1 + " ", attributes: style2)
             let attributedString2 = NSMutableAttributedString(string: title2, attributes: style1)
             attributedString1.append(attributedString2)
-//            attributedString1.addAttribute(.kern,
-//                                           value: 1.0,
-//                                           range: NSRange(location: 0,
-//                                                          length: attributedString1.length))
             titleLabel.attributedText = attributedString1
         } else {
             let attributedString1 = NSMutableAttributedString(string: title1 + " ", attributes: style1)
             let attributedString2 = NSMutableAttributedString(string: title2, attributes: style2)
             attributedString1.append(attributedString2)
-//            attributedString1.addAttribute(.kern,
-//                                           value: 1.0,
-//                                           range: NSRange(location: 0,
-//                                                          length: attributedString1.length))
             titleLabel.attributedText = attributedString1
         }
 

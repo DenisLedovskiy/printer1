@@ -42,7 +42,7 @@ private extension SettingPresenter {
 extension SettingPresenter: SettingPresenterInterface {
     func selectMenu(_ index: Int) {
         switch index {
-        case 0: return
+        case 0: router.routeFAQ()
         case 1: router.routeChangeIcon()
         case 2: selectShare()
         case 3: selectTerm()

@@ -1,13 +1,14 @@
 import UIKit
+import SafariServices
 
 final class FAQVC: GeneralViewController {
 
-    private var sections: [AddPrinterSection] = [AddPrinterSection]()
+    private var sections: [FAQSection] = FAQSection.makeSection()
     private lazy var dataSource = makeDataSource()
 
     // MARK: - Value Types
-    typealias DataSource = UICollectionViewDiffableDataSource<AddPrinterSection, AddPrinterCellModel>
-    typealias Snapshot = NSDiffableDataSourceSnapshot<AddPrinterSection, AddPrinterCellModel>
+    typealias DataSource = UICollectionViewDiffableDataSource<FAQSection, FAQCellModel>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<FAQSection, FAQCellModel>
 
     //MARK: - UI
     private lazy var backButton: UIButton = {
@@ -20,11 +21,11 @@ final class FAQVC: GeneralViewController {
 
     private lazy var titleLabel: UILabel = {
        let label = UILabel()
-        label.text = perevod("Add a Printer")
-        label.font = .dmSans(.heavy, size: 22)
+        label.text = "FAQ"
+        label.font = .dmSans(.black, size: 25)
         label.textColor = .prBlack
         label.numberOfLines = 1
-        label.textAlignment = .center
+        label.textAlignment = .natural
         label.adjustsFontSizeToFitWidth = true
         return label
     }()
@@ -35,9 +36,8 @@ final class FAQVC: GeneralViewController {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = .clear
         collectionView.delegate = self
-        collectionView.isHidden = true
         collectionView.contentInset.bottom = 80
-        AddPrinterCell.register(collectionView)
+        FAQCell.register(collectionView)
         return collectionView
     }()
 
@@ -52,11 +52,12 @@ final class FAQVC: GeneralViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         congifureConstraits()
+        applySnapshot()
     }
 
 }
 //MARK: - Private
-private extension AddPrinterVC {
+private extension FAQVC {
 
     @objc func tapClose() {
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
@@ -67,22 +68,10 @@ private extension AddPrinterVC {
         dismiss(animated: true)
     }
 
-    func openGuide() {
-
-    }
-
-    @objc func tapRefresh() {
-        UIImpactFeedbackGenerator(style: .light).impactOccurred()
-        bottomLabel.text = perevod("Select a printer model first to release the print job")
-        lookingLabel.text = perevod("Looking for Printers...")
-        refreshButton.isHidden = true
-    }
-
-    func setRefreshState() {
-        refreshButton.isHidden = false
-        bottomLabel.text = perevod("Double-check that your printer is on and connected, then try again")
-        lookingLabel.text = perevod("No printers found")
-        makeEmptyImg()
+    func openLink() {
+        guard let url = URL(string: "https://support.apple.com/en-us/HT201311") else {return}
+        let safariVC = SFSafariViewController(url: url)
+        self.present(safariVC, animated: true, completion: nil)
     }
 }
 
@@ -96,8 +85,11 @@ private extension FAQVC {
             collectionView: collectionView,
             cellProvider: { (collectionView, indexPath, item) ->
                 UICollectionViewCell? in
-                let cell = AddPrinterCell.getCell(collectionView, for: indexPath)
+                let cell = FAQCell.getCell(collectionView, for: indexPath)
                 cell.setCell(item)
+                cell.didTapLink = {
+                    self.openLink()
+                }
                 return cell
             })
         return dataSource
@@ -108,7 +100,7 @@ private extension FAQVC {
         let configuration = UICollectionViewCompositionalLayoutConfiguration()
 
         return UICollectionViewCompositionalLayout(sectionProvider: { [self] section, _ in
-            makeTableLayout(size: AddPrinterCell.size)
+            makeTableLayout(size: FAQCell.size)
         }, configuration: configuration)
     }
 
@@ -117,11 +109,12 @@ private extension FAQVC {
                          leftRightInset: CGFloat = 22,
                          topInset: CGFloat = 0) -> NSCollectionLayoutSection {
 
+        let estimatedHeight: CGFloat = 50
         let itemSize = NSCollectionLayoutSize(widthDimension: .absolute(size.width),
-                                              heightDimension: .absolute(size.height))
+                                              heightDimension: .estimated(estimatedHeight))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: itemSize, repeatingSubitem: item, count: 1)
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: itemSize, subitems: [item])
 
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = interGroupSpace
@@ -130,11 +123,6 @@ private extension FAQVC {
                                       bottom: 0,
                                       trailing: leftRightInset)
         return section
-    }
-
-    private func setSections(_ section: [AddPrinterSection]) {
-        self.sections = section
-        applySnapshot()
     }
 
     private func applySnapshot(animatingDifferences: Bool = true) {
@@ -165,21 +153,20 @@ private extension FAQVC {
         view.addSubview(collectionView)
 
         titleLabel.snp.makeConstraints({
-            $0.top.equalToSuperview().offset(28)
-            $0.leading.trailing.equalToSuperview().inset(60)
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(36)
+            $0.leading.equalToSuperview().offset(22)
         })
 
         backButton.snp.makeConstraints({
-            $0.trailing.equalToSuperview().inset(25)
+            $0.trailing.equalToSuperview().inset(22)
             $0.centerY.equalTo(titleLabel.snp.centerY)
             $0.size.equalTo(34)
         })
 
         collectionView.snp.makeConstraints({
             $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(guideView.snp.bottom)
-            $0.top.equalTo(bottomLabel.snp.bottom).offset(18)
+            $0.bottom.equalToSuperview()
+            $0.top.equalTo(titleLabel.snp.bottom).offset(14)
         })
-
     }
 }

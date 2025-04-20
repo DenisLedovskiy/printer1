@@ -3,6 +3,7 @@ import UIKit
 protocol ImportRouterInterface: AnyObject {
     func routeAddPrinter()
     func routeBroweser()
+    func routeDocPreview(file: FileModel)
 }
 
 class ImportRouter: NSObject {
@@ -12,6 +13,12 @@ class ImportRouter: NSObject {
 // MARK: - ImportRouterInterface
 
 extension ImportRouter: ImportRouterInterface {
+    func routeDocPreview(file: FileModel) {
+        guard let viewController = controller else { return }
+        let vc = PreviewInit.createViewController(file: file)
+        viewController.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     func routeBroweser() {
         guard let viewController = controller else { return }
         let vc = BrowserVC()

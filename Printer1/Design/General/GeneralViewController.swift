@@ -4,6 +4,8 @@ class GeneralViewController: UIViewController {
 
     private var activityView: UIView?
 
+    var selectedPrinter: UIPrinter?
+
     var tabBar: AppTabBar? {
         return self.tabBarController as? AppTabBar
     }

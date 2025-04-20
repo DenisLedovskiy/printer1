@@ -314,7 +314,6 @@ private extension BrowserVC {
         fieldBack.addSubview(searchBtn)
         fieldBack.addSubview(textField)
 
-
         topView.snp.makeConstraints({
             $0.top.equalToSuperview()
             $0.leading.trailing.equalToSuperview()

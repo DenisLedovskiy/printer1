@@ -1,10 +1,15 @@
 import UIKit
+import VisionKit
+import PhotosUI
+import Photos
 
 protocol ImportPresenterOutputInterface: AnyObject {
 
 }
 
 final class ImportViewController: GeneralViewController {
+
+    var printers = [String]()
 
     private var presenter: ImportPresenterInterface?
     private var router: ImportRouterInterface?
@@ -98,7 +103,45 @@ extension ImportViewController: ImportPresenterOutputInterface {
 private extension ImportViewController {
 
     func select() {
-        presenter?.selectAddPrinter()
+        let pickerController = UIPrinterPickerController(initiallySelectedPrinter: nil)
+
+        pickerController.present(animated: true) { (controller, completed, error) in
+            if completed {
+                var printer: UIPrinter? { return controller.selectedPrinter }
+                self.selectedPrinter = printer
+                self.top.setPrinterTitle(title: printer?.displayName ?? "")
+            } else {
+                print("Did not work")
+            }
+        }
+    }
+}
+
+//MARK: - Printer search
+extension ImportViewController: UIPrintInteractionControllerDelegate {
+
+    func startSearchPrinters() {
+        let printInfo = UIPrintInfo.printInfo()
+        printInfo.outputType = .general
+
+        let printController = UIPrintInteractionController.shared
+        printController.delegate = self
+        printController.printInfo = printInfo
+        printController.present(animated: true, completionHandler: nil)
+    }
+
+    func printInteractionControllerChoosePaper(_ controller: UIPrintInteractionController) -> UIPrintPaper? {
+        return nil
+    }
+
+    func printInteractionControllerWillStartJob(_ printInteractionController: UIPrintInteractionController) {
+    }
+
+    func printInteractionControllerDidFinishJob(_ printInteractionController: UIPrintInteractionController) {
+    }
+
+    func printInteractionControllerParentViewController(_ printInteractionController: UIPrintInteractionController) -> UIViewController? {
+        return self
     }
 }
 
@@ -168,6 +211,9 @@ extension ImportViewController: UICollectionViewDelegate {
 //        presenter?.needShowDocument(indexPath.row)
 
         switch indexPath.row {
+        case 0: scanCamera()
+        case 1: checkPhotoLibraryPermission()
+        case 2: openFiles()
         case 3: presenter?.selectBroweser()
         default: return
         }
@@ -207,3 +253,174 @@ private extension ImportViewController {
     }
 }
 
+//MARK: - All pickers
+private extension ImportViewController {
+
+    func convertImagesToPDF(_ images: [UIImage]) {
+        presenter?.doPdfFromImg(images)
+    }
+
+    func scanCamera() {
+        let documentCameraViewController = VNDocumentCameraViewController()
+        documentCameraViewController.delegate = self
+        present(documentCameraViewController, animated: true)
+    }
+
+    func checkPhotoLibraryPermission() {
+           switch PHPhotoLibrary.authorizationStatus() {
+           case .authorized:
+               presentPhotoPicker()
+           case .notDetermined:
+               PHPhotoLibrary.requestAuthorization { status in
+                   DispatchQueue.main.async {
+                       if status == .authorized {
+                           self.presentPhotoPicker()
+                       } else {
+                           self.showErrorSettingAlert(title: perevod("Sorry"),
+                                                      message: perevod("For this feature to work, please allow access to the gallery."))
+                       }
+                   }
+               }
+           default:
+               self.showErrorSettingAlert(title: perevod("Sorry"),
+                                          message: perevod("For this feature to work, please allow access to the gallery."))
+           }
+       }
+
+    func presentPhotoPicker() {
+        var config = PHPickerConfiguration()
+        config.selection = .ordered
+        config.filter = .images
+        config.selectionLimit = 0
+
+        let phpPicker = PHPickerViewController(configuration: config)
+        phpPicker.delegate = self
+        present(phpPicker, animated: true)
+    }
+
+    func openFiles() {
+        let allowedUTTypes: [String] = [
+            "com.microsoft.word.doc",
+            "org.openxmlformats.wordprocessingml.document",
+            "com.microsoft.excel.xls",
+            "org.openxmlformats.spreadsheetml.sheet",
+            "com.microsoft.powerpoint.ppt",
+            "org.openxmlformats.presentationml.presentation",
+            "com.adobe.pdf"
+        ]
+
+        let picker = UIDocumentPickerViewController(forOpeningContentTypes: allowedUTTypes.map { UTType($0)! })
+        picker.delegate = self
+        picker.modalPresentationStyle = .formSheet
+        present(picker, animated: true, completion: nil)
+    }
+
+}
+
+//MARK: - VNDocumentCameraViewControllerDelegate
+
+extension ImportViewController: VNDocumentCameraViewControllerDelegate {
+    func documentCameraViewController(_ controller: VNDocumentCameraViewController, didFinishWith scan: VNDocumentCameraScan) {
+
+        var images: [UIImage] = []
+        for pageIndex in 0..<scan.pageCount {
+            let image = scan.imageOfPage(at: pageIndex)
+            images.append(image)
+        }
+        convertImagesToPDF(images)
+        dismiss(animated: true)
+    }
+
+    func documentCameraViewControllerDidCancel(_ controller: VNDocumentCameraViewController) {
+        dismiss(animated: true)
+    }
+
+    func documentCameraViewController(_ controller: VNDocumentCameraViewController, didFailWithError error: Error) {
+        dismiss(animated: true)
+    }
+}
+
+//MARK: - PHPickerViewControllerDelegate
+extension ImportViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true)
+        var selectedImages: [UIImage] = []
+
+        let itemProviders = results.map { $0.itemProvider }
+        let group = DispatchGroup()
+
+        for item in itemProviders {
+            group.enter()
+            if item.canLoadObject(ofClass: UIImage.self) {
+                item.loadObject(ofClass: UIImage.self) { (object, error) in
+                    if let image = object as? UIImage {
+                        selectedImages.append(image)
+                    }
+                    group.leave()
+                }
+            } else {
+                group.leave()
+            }
+        }
+
+        group.notify(queue: .main) {
+            self.convertImagesToPDF(selectedImages)
+        }
+    }
+}
+
+//MARK: - UIDocumentPickerDelegate
+extension ImportViewController: UIDocumentPickerDelegate {
+
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        guard let sourceUrl = urls.first,
+              sourceUrl.startAccessingSecurityScopedResource(),
+              let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+//        defer { sourceUrl.stopAccessingSecurityScopedResource() }
+
+        let originalFileName = sourceUrl.lastPathComponent
+        let uniqueFileName = setTitleForFile(originalFileName, in: documentsUrl)
+        let destinationUrl = documentsUrl.appendingPathComponent(uniqueFileName)
+
+        do {
+            try FileManager.default.copyItem(at: sourceUrl, to: destinationUrl)
+            print("Файл успешно сохранен по пути: \(destinationUrl.path)")
+
+
+            //TODO: - save in core data
+//            presenter?.addPDF(uniqueFileName)
+
+            let fileNameWithoutExtension = uniqueFileName.components(separatedBy: ".").first ?? ""
+            let extensionString = uniqueFileName.components(separatedBy: ".").last ?? ""
+            let file = FileModel(id: UUID(),
+                                 title: fileNameWithoutExtension,
+                                 type: extensionString,
+                                 date: Date())
+            presenter?.needShowPreview(file)
+        } catch {
+            print("Ошибка при сохранении файла: \(error.localizedDescription)")
+        }
+    }
+
+    func setTitleForFile(_ fileTitle: String, in folder: URL) -> String {
+        var currentFileName = fileTitle
+        var index = 1
+
+        while fileExists(at: folder.appendingPathComponent(currentFileName)) {
+            currentFileName = appendIndexToFileName(fileTitle, index: index)
+            index += 1
+        }
+        return currentFileName
+    }
+
+    private func appendIndexToFileName(_ fileName: String, index: Int) -> String {
+        let components = fileName.components(separatedBy: ".")
+        let baseName = components.first
+        let extensionName = components.count > 1 ? "." + components.dropFirst().joined(separator: ".") : ""
+        return "\(baseName ?? "docName")(\(index))\(extensionName)"
+    }
+
+    private func fileExists(at url: URL) -> Bool {
+        return FileManager.default.fileExists(atPath: url.path)
+    }
+}

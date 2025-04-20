@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9232DB5C2DB42510009B487E /* import.xlsx in Resources */ = {isa = PBXBuildFile; fileRef = 9232DB5B2DB42510009B487E /* import.xlsx */; };
+		9232DB602DB428BB009B487E /* docdoc.docx in Resources */ = {isa = PBXBuildFile; fileRef = 9232DB5F2DB428BB009B487E /* docdoc.docx */; };
+		9232DB622DB4294E009B487E /* samplePP.pptx in Resources */ = {isa = PBXBuildFile; fileRef = 9232DB612DB4294E009B487E /* samplePP.pptx */; };
+		9232DB642DB42E67009B487E /* LT3.6.docx in Resources */ = {isa = PBXBuildFile; fileRef = 9232DB632DB42E67009B487E /* LT3.6.docx */; };
+		9232DB662DB42FF6009B487E /* NDA.docx in Resources */ = {isa = PBXBuildFile; fileRef = 9232DB652DB42FF6009B487E /* NDA.docx */; };
+		9232DB682DB43212009B487E /* samplePDF.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9232DB672DB43212009B487E /* samplePDF.pdf */; };
 		92E446862DAED9C30061EB78 /* ApphudSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 92E446852DAED9C30061EB78 /* ApphudSDK */; };
 		92E446892DAED9ED0061EB78 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 92E446882DAED9ED0061EB78 /* SnapKit */; };
 		92E4468C2DAEDA140061EB78 /* PanModal in Frameworks */ = {isa = PBXBuildFile; productRef = 92E4468B2DAEDA140061EB78 /* PanModal */; };
@@ -14,6 +20,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9232DB5B2DB42510009B487E /* import.xlsx */ = {isa = PBXFileReference; lastKnownFileType = file; path = import.xlsx; sourceTree = "<group>"; };
+		9232DB5F2DB428BB009B487E /* docdoc.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = docdoc.docx; sourceTree = "<group>"; };
+		9232DB612DB4294E009B487E /* samplePP.pptx */ = {isa = PBXFileReference; lastKnownFileType = file; path = samplePP.pptx; sourceTree = "<group>"; };
+		9232DB632DB42E67009B487E /* LT3.6.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = LT3.6.docx; sourceTree = "<group>"; };
+		9232DB652DB42FF6009B487E /* NDA.docx */ = {isa = PBXFileReference; lastKnownFileType = file; path = NDA.docx; sourceTree = "<group>"; };
+		9232DB672DB43212009B487E /* samplePDF.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = samplePDF.pdf; sourceTree = "<group>"; };
 		92E445792DAECEA10061EB78 /* Printer1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Printer1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92E4468D2DAEDA210061EB78 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -57,6 +69,12 @@
 			isa = PBXGroup;
 			children = (
 				92E4468D2DAEDA210061EB78 /* Config.swift */,
+				9232DB5F2DB428BB009B487E /* docdoc.docx */,
+				9232DB652DB42FF6009B487E /* NDA.docx */,
+				9232DB672DB43212009B487E /* samplePDF.pdf */,
+				9232DB632DB42E67009B487E /* LT3.6.docx */,
+				9232DB612DB4294E009B487E /* samplePP.pptx */,
+				9232DB5B2DB42510009B487E /* import.xlsx */,
 				92E4457B2DAECEA10061EB78 /* Printer1 */,
 				92E4457A2DAECEA10061EB78 /* Products */,
 			);
@@ -142,6 +160,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9232DB662DB42FF6009B487E /* NDA.docx in Resources */,
+				9232DB622DB4294E009B487E /* samplePP.pptx in Resources */,
+				9232DB602DB428BB009B487E /* docdoc.docx in Resources */,
+				9232DB5C2DB42510009B487E /* import.xlsx in Resources */,
+				9232DB682DB43212009B487E /* samplePDF.pdf in Resources */,
+				9232DB642DB42E67009B487E /* LT3.6.docx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,6 +197,8 @@
 				INFOPLIST_FILE = Printer1/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Printer1;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSCameraUsageDescription = NSCameraUsageDescription;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = NSPhotoLibraryUsageDescription;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -206,6 +232,8 @@
 				INFOPLIST_FILE = Printer1/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Printer1;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSCameraUsageDescription = NSCameraUsageDescription;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = NSPhotoLibraryUsageDescription;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
