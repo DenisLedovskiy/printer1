@@ -14,13 +14,14 @@ class InAppRouter: NSObject {
 
 extension InAppRouter: InAppRouterInterface {
     func dismiss() {
-//        if UserSet.isNotFirstEnter ?? false {
-//            guard let viewController = controller else { return }
-//            viewController.dismiss(animated: false)
-//        } else {
-        let appLaunch = AppLaunch()
-        appLaunch.startMainScene()
-//        }
+        if UserInfoManager.isNotFirstEnter ?? false {
+            guard let viewController = controller else { return }
+            viewController.dismiss(animated: false)
+        } else {
+            print("23e234")
+            let appLaunch = AppLaunch()
+            appLaunch.startMainScene()
+        }
     }
 
     func openLink(_ url: URL) {

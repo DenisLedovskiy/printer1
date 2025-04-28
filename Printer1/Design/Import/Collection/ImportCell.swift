@@ -1,6 +1,12 @@
 import UIKit
 
 final class ImportCell: GeneralCollectionCell {
+    private var imageTopInset: Double = switch phoneSize {
+    case .small: 6
+    case .medium: 22
+    case .big: 26
+    }
+
     // MARK: - properties
 
     private let cornerRadius: CGFloat = 22
@@ -37,7 +43,11 @@ final class ImportCell: GeneralCollectionCell {
 
     override class var size: CGSize {
         let width: CGFloat = (screeneWidth - 44 - 16)/2
-        let height: CGFloat = width
+        let height: CGFloat = switch phoneSize {
+        case .big: width - 20
+        case .medium: width
+        case .small: width - 10
+        }
         return CGSize(
             width: width,
             height: height
@@ -83,7 +93,7 @@ extension ImportCell {
 
         cellImage.snp.makeConstraints({
             $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().offset(22)
+            $0.top.equalToSuperview().offset(imageTopInset)
             $0.size.equalTo(iconSize)
         })
 

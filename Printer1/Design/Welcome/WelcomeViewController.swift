@@ -4,25 +4,25 @@ import SafariServices
 
 final class WelcomeViewController: GeneralViewController {
 
-    private let appHubManager = AppHudManager.shared
+    private let appHubManager = MoneyManager.shared
 
     private var page = 0
     private lazy var bottomButtonsHeight: Double = 20
 
     private var imageTopInset: Double = switch phoneSize {
-    case .small: 140
+    case .small: 120
     case .medium: 160
-    case .big: 180
+    case .big: 200
     }
 
     private var imageHeight: Double = switch phoneSize {
-    case .small: screeneWidth * 1.18575064
+    case .small: (screeneWidth-20) * 1.18 //1.18575064
     case .medium: 466
-    case .big: 496
+    case .big: screeneWidth * 1.18
     }
 
     private var titleTopInset: Double = switch phoneSize {
-    case .small: 6
+    case .small: 10
     case .medium: 30
     case .big: 50
     }
@@ -145,16 +145,18 @@ private extension WelcomeViewController {
 
         page += 1
 
+        if page == 2 {
+            getAppHudInfoAgain()
+        }
+
         if page == 3 {
             rateApp()
-            getAppHudInfoAgain()
         }
 
         if page < 4 {
             setUI(page)
         } else {
-            let payWallIndex = AppHudManager.shared.payWallindex
-            openPayWall(payWallIndex)
+            openPayWall()
         }
     }
 
@@ -190,16 +192,13 @@ private extension WelcomeViewController{
 
     func setUI(_ index: Int) {
         setTitle(index)
-
         switch index {
         case 0: startSubLabel.text = perevod("Print photos, documents, and web pages directly from your phone")
         case 1: startSubLabel.text = perevod("We’ll automatically find your printer and connect in seconds")
         case 2: startSubLabel.text = perevod("Scan your documents in high quality with just one tap")
         case 3: startSubLabel.text = perevod("We appreciate your feedback and strive to improve our product")
         default: return
-
         }
-
         backImageView.image = UIImage(named: "start.\(index)")
     }
 
@@ -215,14 +214,14 @@ private extension WelcomeViewController{
         }
     }
 
-    func openPayWall(_ index: Int) {
+    func openPayWall() {
         let controller = InAppInit.createViewController()
         navigationController?.pushViewController(controller, animated: false)
     }
 
     func getAppHudInfoAgain() {
         Task {
-            AppHudManager.shared.getProducts()
+            MoneyManager.shared.getProducts()
         }
     }
 }
@@ -247,22 +246,22 @@ private extension WelcomeViewController {
 
         titleLabel.snp.makeConstraints({
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(titleTopInset)
-            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.leading.trailing.equalToSuperview().inset(10)
         })
 
         startSubLabel.snp.makeConstraints({
-            $0.top.equalTo(titleLabel.snp.bottom).offset(isSmallPhone ? 4 : 8)
-            $0.leading.trailing.equalToSuperview().inset(40)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(isSmallPhone ? 2 : 8)
+            $0.leading.trailing.equalToSuperview().inset(isSmallPhone ? 20 : 40)
         })
 
         backImageView.snp.makeConstraints({
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(imageTopInset)
-            $0.leading.trailing.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(isSmallPhone ? 10 : 0)
             $0.height.equalTo(imageHeight)
         })
 
         continueButton.snp.makeConstraints({
-            $0.top.equalTo(backImageView.snp.bottom)
+            $0.top.equalTo(backImageView.snp.bottom).offset(0)
             $0.height.equalTo(continueButton.height)
             $0.leading.trailing.equalToSuperview().inset(22)
         })
@@ -331,11 +330,7 @@ private extension WelcomeViewController {
 
 // MARK: - AppHubManagerDelegate
 
-extension WelcomeViewController: AppHudManagerDelegate {
-    func finishLoadPaywall() {
-
-    }
-
+extension WelcomeViewController: MoneyManagerDelegateDelegate {
     func purchasesWasEnded(success: Bool?, messageError: String) {
         endSpinner()
         guard let success = success else {

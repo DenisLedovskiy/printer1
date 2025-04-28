@@ -3,14 +3,14 @@ import UIKit
 final class GradientButton: UIButton {
 
     var height: Double {
-        return 68
+        return phoneSize == .big ? 76 : 68 
     }
 
     private lazy var gradient: CAGradientLayer = {
         let gradient = CAGradientLayer()
         gradient.colors = [UIColor.gradient0.cgColor, UIColor.gradient1.cgColor]
-        gradient.startPoint = CGPoint(x: 0.0, y: 0.5)
-        gradient.endPoint = CGPoint(x: 1.0, y: 0.5)
+        gradient.startPoint = CGPoint(x: 0, y: 0)
+        gradient.endPoint = CGPoint(x: 0, y: 1)
         return gradient
     }()
 
@@ -43,7 +43,7 @@ final class GradientButton: UIButton {
             string: title,
             attributes: [
                 NSAttributedString.Key.foregroundColor : UIColor.white,
-                NSAttributedString.Key.font : UIFont.dmSans(.heavy, size: 18)
+                NSAttributedString.Key.font : UIFont.dmSans(.heavy, size: phoneSize == .big ? 22 : 18)
             ]
         )
         setAttributedTitle(normalAttributedString, for: .normal)

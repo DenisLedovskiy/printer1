@@ -17,7 +17,7 @@ final class TopSett: UIView {
     private let bannerTitle: UILabel = {
         let label = UILabel()
         label.text = perevod("Unlock full access")
-        label.numberOfLines = 1
+        label.numberOfLines = 2
         label.textColor = .white
         label.textAlignment = .natural
         label.adjustsFontSizeToFitWidth = true
@@ -90,29 +90,52 @@ private extension TopSett {
 
         bannerTitle.snp.makeConstraints({
             $0.top.equalToSuperview().offset(isSmallPhone ? 12 : 21)
-            $0.leading.equalToSuperview().offset(20)
+            $0.leading.equalToSuperview().offset(isSmallPhone ? 12 : 20)
             $0.trailing.equalToSuperview().inset(90)
         })
 
+        if !isEnLocal {
+            bannerTitle.snp.updateConstraints({
+                $0.top.equalToSuperview().offset(12)
+                $0.leading.equalToSuperview().offset(12)
+            })
+        }
+
         cellDesc.snp.makeConstraints({
             $0.top.equalTo(bannerTitle.snp.bottom).offset(2)
-            $0.leading.equalToSuperview().offset(34)
-            $0.trailing.equalToSuperview().inset(200)
+            $0.leading.equalToSuperview().offset(isSmallPhone ? 26 : 34)
+            $0.trailing.equalToSuperview().inset(150)
         })
 
         dotView.snp.makeConstraints({
             $0.centerY.equalTo(cellDesc.snp.centerY)
             $0.size.equalTo(10)
-            $0.leading.equalToSuperview().offset(20)
+            $0.leading.equalToSuperview().offset(isSmallPhone ? 12 : 20)
         })
+
+        if !isEnLocal {
+            cellDesc.snp.updateConstraints({
+                $0.leading.equalToSuperview().offset(24)
+            })
+            dotView.snp.updateConstraints({
+                $0.leading.equalToSuperview().offset(12)
+            })
+        }
 
         let width = perevod("Try now").width(font: .dmSans(.heavy, size: 18)) + 56
         selectButton.snp.makeConstraints({
             $0.width.equalTo(width)
             $0.height.equalTo(35)
-            $0.bottom.equalToSuperview().inset(18)
-            $0.leading.equalToSuperview().offset(20)
+            $0.bottom.equalToSuperview().inset(isSmallPhone ? 10 : 18)
+            $0.leading.equalToSuperview().offset(isSmallPhone ? 12 : 20)
         })
+
+        if !isEnLocal {
+            selectButton.snp.updateConstraints({
+                $0.bottom.equalToSuperview().inset(10)
+                $0.leading.equalToSuperview().offset(12)
+            })
+        }
     }
 
     @objc func tapTry() {

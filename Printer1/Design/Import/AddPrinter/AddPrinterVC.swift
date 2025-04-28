@@ -116,19 +116,6 @@ final class AddPrinterVC: GeneralViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         congifureConstraits()
-
-        //TODO: - переделать заполнение секции
-        let items = [AddPrinterCellModel(title: "adas Sd adas das das  ad"),
-                     AddPrinterCellModel(title: "adas Sd adas das das  ad d asdsa d asd asd a"),
-                     AddPrinterCellModel(title: "adas Sd adas das das  ad")]
-        let sections = AddPrinterSection.makeSection(items)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-//            self.makeCollectionImg()
-//            self.collectionView.isHidden = false
-//            self.setSections(sections)
-
-//            self.startSearchPrinters()
-        }
     }
 
 }
@@ -137,46 +124,7 @@ final class AddPrinterVC: GeneralViewController {
 extension AddPrinterVC: UIPrintInteractionControllerDelegate {
 
     func startSearchPrinters() {
-//        let printerPicker = UIPrinterPickerController(initiallySelectedPrinter: nil)
-//        printerPicker.selectPrinter(nil) { (printer, error) in
-//
-//            if let error = error {
-//                print("Error fetching printers: \(error)")
-//                return
-//            }
-//
-//            guard let printer = printer else {
-//                print("No printer selected.")
-//                return
-//            }
-//
-//            print("Printer Name: \(printer.displayName)")
-//            print("Printer URL: \(printer.url?.absoluteString ?? "No URL")")
-//        }
-//    }
 
-
-
-
-
-    }
-
-    // Реализация делегата для получения выбранного принтера
-    func printInteractionControllerChoosePaper(_ controller: UIPrintInteractionController) -> UIPrintPaper? {
-        // Возвращаем выбранный лист бумаги (необязательно)
-        return nil
-    }
-
-    func printInteractionControllerWillStartJob(_ printInteractionController: UIPrintInteractionController) {
-        // Здесь можно обработать событие начала задания печати
-    }
-
-    func printInteractionControllerDidFinishJob(_ printInteractionController: UIPrintInteractionController) {
-        // Обработка завершения задания печати
-    }
-
-    func printInteractionControllerParentViewController(_ printInteractionController: UIPrintInteractionController) -> UIViewController? {
-        return self
     }
 }
 

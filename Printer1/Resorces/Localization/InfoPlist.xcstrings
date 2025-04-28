@@ -8,10 +8,11 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Printer1"
+            "value" : "PrinterApp"
           }
         }
-      }
+      },
+      "shouldTranslate" : false
     },
     "CFBundleName" : {
       "comment" : "Bundle name",
@@ -23,15 +24,70 @@
             "value" : "Printer1"
           }
         }
-      }
+      },
+      "shouldTranslate" : false
     },
     "NSCameraUsageDescription" : {
       "extractionState" : "manual",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erlauben Sie den Zugriff auf die Kamera, um Dokumente scannen zu können"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Allow access to the camera to be able to scan documents"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permitir el acceso a la cámara para poder escanear documentos"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permitir el acceso a la cámara para poder escanear documentos"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permitir el acceso a la cámara para poder escanear documentos"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Autoriser l'accès à la caméra pour pouvoir numériser des documents"
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Autoriser l'accès à la caméra pour pouvoir numériser des documents"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Consentire l'accesso alla fotocamera per poter scansionare documenti"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permitir acesso à câmera para poder digitalizar documentos"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permitir acesso à câmera para poder digitalizar documentos"
           }
         }
       }
@@ -39,10 +95,64 @@
     "NSPhotoLibraryUsageDescription" : {
       "extractionState" : "manual",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erlauben Sie den Zugriff auf die Galerie, um dort gespeicherte gescannte Dokumente zu bearbeiten"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Allow access to the gallery to edit scanned documents stored there."
+            "value" : "Allow access to the gallery to edit scanned documents stored there"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permitir el acceso a la galería para editar los documentos escaneados almacenados allí"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permitir el acceso a la galería para editar los documentos escaneados almacenados allí"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permitir el acceso a la galería para editar los documentos escaneados almacenados allí"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Autoriser l'accès à la galerie pour modifier les documents numérisés qui y sont stockés"
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Autoriser l'accès à la galerie pour modifier les documents numérisés qui y sont stockés"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Consenti l'accesso alla Galleria per modificare i documenti scansionati ivi archiviati"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permitir acesso à galeria para editar documentos digitalizados armazenados lá"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permitir acesso à galeria para editar documentos digitalizados armazenados lá"
           }
         }
       }

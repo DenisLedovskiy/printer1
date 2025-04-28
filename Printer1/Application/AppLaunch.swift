@@ -5,15 +5,13 @@ final class AppLaunch {
     private var window: UIWindow?
 
     func launch() {
-//        welcomeScreen()
-
-//        if UserSet.isNotFirstEnter ?? false {
+        if UserInfoManager.isNotFirstEnter ?? false {
             startMainScene()
-//        } else {
-
-//        UserInfoManager.isFirstIconSet = true
-//            goOnboardingScreen()
-//        }
+        } else {
+            UserInfoManager.isNotFirstEnter = false
+            UserInfoManager.isFirstIconSet = true
+            welcomeScreen()
+        }
     }
 
     func welcomeScreen() {

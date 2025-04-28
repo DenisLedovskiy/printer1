@@ -7,5 +7,5 @@ enum Config: String {
     case privacy = "https://.google.com/"
     case term = "https://docs.google.com"
     case email = "123@gmail.com"
-    case appHud = "123"
+    case appHud = ""
 }

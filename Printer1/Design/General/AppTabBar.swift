@@ -175,14 +175,6 @@ private extension AppTabBar {
     func setupTabBarUI() {
         tabBar.backgroundColor = .clear
 
-//        if #available(iOS 15.0, *) {
-//            let appearance = UITabBarAppearance()
-//            appearance.configureWithOpaqueBackground()
-//            appearance.backgroundColor = .clear
-//            tabBar.standardAppearance = appearance
-//            tabBar.scrollEdgeAppearance = tabBar.standardAppearance
-//        }
-
         view.addSubview(tabCustomView)
         tabCustomView.addSubview(importIcon)
         tabCustomView.addSubview(importLabel)

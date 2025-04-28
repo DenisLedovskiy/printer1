@@ -36,17 +36,23 @@ final class ChangeIcon: GeneralViewController {
         button.setImage(.appImage1, for: .highlighted)
         button.addTarget(self, action: #selector(tapIcon1), for: .touchUpInside)
 
-//        button.imageView?.contentMode = .scaleToFill
         return button
+    }()
+
+    private let icon2View: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = .appImage2
+        imageView.contentMode = .scaleToFill
+        imageView.clipsToBounds = true
+        imageView.backgroundColor = .clear
+        imageView.layer.cornerRadius = 22
+        return imageView
     }()
 
     private lazy var appImage2Button: UIButton = {
         let button = UIButton()
         button.backgroundColor = .clear
         button.layer.cornerRadius = 22
-
-        button.setImage(.appImage2, for: .normal)
-        button.setImage(.appImage2, for: .highlighted)
         button.addTarget(self, action: #selector(tapIcon2), for: .touchUpInside)
         return button
     }()
@@ -124,6 +130,7 @@ private extension ChangeIcon {
         view.addSubview(titleLabel)
         view.addSubview(backButton)
         view.addSubview(appImage1Button)
+        view.addSubview(icon2View)
         view.addSubview(appImage2Button)
 
         titleLabel.snp.makeConstraints({
@@ -141,6 +148,12 @@ private extension ChangeIcon {
             $0.size.equalTo(iconsize)
             $0.top.equalTo(titleLabel.snp.bottom).offset(40)
             $0.leading.equalToSuperview().offset(22)
+        })
+
+        icon2View.snp.makeConstraints({
+            $0.size.equalTo(iconsize)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(40)
+            $0.trailing.equalToSuperview().inset(22)
         })
 
         appImage2Button.snp.makeConstraints({

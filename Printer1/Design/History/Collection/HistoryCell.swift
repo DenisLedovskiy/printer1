@@ -92,7 +92,11 @@ final class HistoryCell: GeneralCollectionCell {
     func setCell(_ data: HistoryCellModel) {
         cellLabel.text = data.title
         dateLabel.text = data.date
-        typeLabel.text = data.type.uppercased()
+        if data.type == "" {
+            typeLabel.text = "WEB"
+        } else {
+            typeLabel.text = data.type.uppercased()
+        }
     }
 
 }
@@ -113,11 +117,11 @@ extension HistoryCell {
             $0.width.equalTo(80)
             $0.height.equalTo(97)
             $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().offset(2)
+            $0.top.equalToSuperview().offset(phoneSize == .big ? 20 : 2)
         })
 
         cellLabel.snp.makeConstraints({
-            $0.leading.trailing.equalToSuperview().inset(6)
+            $0.leading.trailing.equalToSuperview().inset(14)
             $0.top.equalTo(paperImage.snp.bottom).offset(-4)
         })
 

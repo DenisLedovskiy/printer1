@@ -43,7 +43,7 @@ final class SettingViewController: GeneralViewController {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = .clear
-        collectionView.isScrollEnabled = false
+        collectionView.isScrollEnabled = isSmallPhone ? true : false
         collectionView.delegate = self
         SettingCell.register(collectionView)
         return collectionView
@@ -67,6 +67,7 @@ final class SettingViewController: GeneralViewController {
         super.viewWillAppear(animated)
         hideTabBar(false)
         hideNavBar(true)
+        setPremOrNotConstraits()
     }
 
     override func viewDidLoad() {
@@ -132,7 +133,7 @@ private extension SettingViewController {
         section.interGroupSpacing = interGroupSpace
         section.contentInsets = .init(top: topInset,
                                       leading: leftRightInset,
-                                      bottom: 0,
+                                      bottom: 60,
                                       trailing: leftRightInset)
         return section
     }
@@ -175,7 +176,7 @@ private extension SettingViewController {
     }
 
     func setPremOrNotConstraits() {
-        if AppHudManager.shared.isPremium {
+        if MoneyManager.shared.isPremium {
             top.snp.removeConstraints()
             top.removeFromSuperview()
             view.addSubview(collectionView)

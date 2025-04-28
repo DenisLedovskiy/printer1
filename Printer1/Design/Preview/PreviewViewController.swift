@@ -1,10 +1,14 @@
 import UIKit
+import PhotosUI
+import Photos
+import VisionKit
+import AVFoundation
 import WebKit
 import PDFKit
 import QuickLook
 
 protocol PreviewPresenterOutputInterface: AnyObject {
-
+    func reloadPDF()
 }
 
 final class PreviewViewController: GeneralViewController {
@@ -18,7 +22,6 @@ final class PreviewViewController: GeneralViewController {
     //MARK: - UI
     private lazy var webView: WKWebView = {
         let view = WKWebView()
-        let configuration = WKWebViewConfiguration()
         view.backgroundColor = .clear
         return view
     }()
@@ -103,7 +106,14 @@ final class PreviewViewController: GeneralViewController {
 // MARK: - PreviewPresenterOutputInterface
 
 extension PreviewViewController: PreviewPresenterOutputInterface {
-
+    func reloadPDF() {
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+        let fileName = "\(file.title).\(file.type)"
+        if let fileURL = documentsDirectory?.appendingPathComponent(fileName) {
+            let newPdfDoc = PDFDocument(url: fileURL)
+            pdfView.document = newPdfDoc
+        }
+    }
 }
 
 //MARK: - Private
@@ -118,28 +128,37 @@ private extension PreviewViewController {
         navigationController?.popViewController(animated: true)
     }
 
-    func selectMenu(index: Int) {
-//        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
-//        let fileName = "\(file.title).\(file.type)"
-//        guard let fileURL = documentsDirectory?.appendingPathComponent(fileName) else {return}
+    func routeInApp() {
+        let vc = InAppInit.createViewController()
+        vc.modalPresentationStyle = .overFullScreen
+        self.present(vc, animated: true)
+    }
 
-        guard let fileURL = Bundle.main.url(forResource: file.title, withExtension: file.type) else { return }
+    func selectMenu(index: Int) {
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+        let fileName = "\(file.title).\(file.type)"
+        guard let fileURL = documentsDirectory?.appendingPathComponent(fileName) else {return}
 
         switch index {
         case 0:
-//            let interactionController = UIDocumentInteractionController(url: fileURL)
-//            interactionController.delegate = self
-//            interactionController.presentPreview(animated: true)
+            guard MoneyManager.shared.isPremium else {
+                routeInApp()
+                return
+            }
 
             self.fileURL = fileURL
-                       let previewController = QLPreviewController()
-                       previewController.dataSource = self
-                       present(previewController, animated: true, completion: nil)
+            let previewController = QLPreviewController()
+            previewController.dataSource = self
+            present(previewController, animated: true, completion: nil)
         case 1:
+            guard MoneyManager.shared.isPremium else {
+                routeInApp()
+                return
+            }
+            
             let printController = UIPrintInteractionController.shared
             printController.delegate = self
             if file.type == "pdf" {
-                guard let fileURL = Bundle.main.url(forResource: file.title, withExtension: "pdf") else { return }
                 printController.printingItem = fileURL
             } else {
                 let renderer = UIPrintPageRenderer()
@@ -150,8 +169,7 @@ private extension PreviewViewController {
             printController.printInfo?.outputType = .general
             printController.present(animated: true, completionHandler: nil)
         case 2:
-            return
-            //TODO: Вставить функционал добавления страниц
+            showAddMenu()
         default: return
         }
     }
@@ -202,7 +220,7 @@ private extension PreviewViewController {
         topView.snp.makeConstraints({
             $0.top.equalToSuperview()
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(140)
+            $0.height.equalTo(isSmallPhone ? 110 : 140)
         })
 
         titleLabel.snp.makeConstraints({
@@ -233,7 +251,6 @@ private extension PreviewViewController {
             let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
             let fileName = "\(file.title).\(file.type)"
             if let fileURL = documentsDirectory?.appendingPathComponent(fileName) {
-//            guard let fileURL = Bundle.main.url(forResource: file.title, withExtension: "pdf") else { return }
                 let newPdfDoc = PDFDocument(url: fileURL)
                 pdfView.document = newPdfDoc
             }
@@ -246,16 +263,207 @@ private extension PreviewViewController {
                 $0.top.equalTo(topView.snp.bottom)
             })
 
-            //TODO: - gjvtyznm yf ad a
-            if let path = Bundle.main.path(forResource: file.title, ofType: file.type) {
-                let url = URL(fileURLWithPath: path)
-                let request = URLRequest(url: url)
+            let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+            let fileName = "\(file.title).\(file.type)"
+            if let fileURL = documentsDirectory?.appendingPathComponent(fileName) {
+                let request = URLRequest(url: fileURL)
                 webView.load(request)
             }
 
             bottomView.isPDF = false
         }
-
         bottomView.setCollection()
+    }
+}
+
+
+// MARK: - ActionSheet
+private extension PreviewViewController {
+    func showAddMenu() {
+        let alertStyle = UIAlertController.Style.actionSheet
+
+        let alert = UIAlertController(title: "",
+                                      message: perevod("Import from"),
+                                      preferredStyle: alertStyle)
+
+        alert.addAction(UIAlertAction(title: perevod("From your Camera"),
+                                      style: .default,
+                                      handler: { [self] (UIAlertAction) in
+            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            self.scanCamera()
+        }))
+        alert.addAction(UIAlertAction(title: perevod("From your Gallery"),
+                                      style: .default,
+                                      handler:{ (UIAlertAction) in
+            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            self.checkPhotoLibraryPermission()
+        }))
+        alert.addAction(UIAlertAction(title: perevod("From your Files"),
+                                      style: .default,
+                                      handler:{ (UIAlertAction)in
+            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            self.selectPDF()
+        }))
+
+        alert.addAction(UIAlertAction(title: perevod("Cancel"),
+                                      style: .cancel,
+                                      handler: nil))
+
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: { })
+        }
+    }
+}
+
+//MARK: - All pickers
+private extension PreviewViewController {
+
+    func convertImagesToPDF(_ images: [UIImage]) {
+        guard let currentPDF = pdfView.document else { return }
+        presenter?.addImgToPDF(title: file.title,
+                               pdf: currentPDF,
+                               images: images)
+    }
+
+    func sheckCameraPermission() {
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
+           case .authorized:
+            DispatchQueue.main.async {
+                self.scanCamera()
+            }
+           case .notDetermined:
+               AVCaptureDevice.requestAccess(for: .video) { granted in
+                   if granted {
+                       DispatchQueue.main.async {
+                           self.scanCamera()
+                       }
+                   } else {
+                       self.showErrorSettingAlert(title: perevod("Sorry"),
+                                                  message: perevod("Allow the app to access your phone's camera to scan and document."))
+                   }
+               }
+           case .denied, .restricted:
+            self.showErrorSettingAlert(title: perevod("Sorry"),
+                                       message: perevod("Allow the app to access your phone's camera to scan and document."))
+           default:
+            self.showErrorSettingAlert(title: perevod("Sorry"),
+                                       message: perevod("Allow the app to access your phone's camera to scan and document."))
+           }
+    }
+
+    func scanCamera() {
+        let scanerVC = VNDocumentCameraViewController()
+        scanerVC.delegate = self
+        present(scanerVC, animated: true)
+    }
+
+    func checkPhotoLibraryPermission() {
+           switch PHPhotoLibrary.authorizationStatus() {
+           case .authorized:
+               DispatchQueue.main.async {
+                   self.presentPhotoPicker()
+               }
+           case .notDetermined:
+               PHPhotoLibrary.requestAuthorization { status in
+                   DispatchQueue.main.async {
+                       if status == .authorized {
+                           self.presentPhotoPicker()
+                       } else {
+                           self.showErrorSettingAlert(title: perevod("Sorry"),
+                                                      message: perevod("For this feature to work, please allow access to the gallery."))
+                       }
+                   }
+               }
+           default:
+               self.showErrorSettingAlert(title: perevod("Sorry"),
+                                          message: perevod("For this feature to work, please allow access to the gallery."))
+           }
+       }
+
+    func presentPhotoPicker() {
+        var configuration = PHPickerConfiguration()
+        configuration.filter = .images
+        configuration.selectionLimit = 0
+        configuration.selection = .ordered
+
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = self
+        present(picker, animated: true)
+    }
+
+    func selectPDF() {
+        let documentPicker = UIDocumentPickerViewController(
+            forOpeningContentTypes: [.pdf],
+            asCopy: true
+        )
+        documentPicker.delegate = self
+        documentPicker.modalPresentationStyle = .formSheet
+        present(documentPicker, animated: true, completion: nil)
+    }
+
+}
+
+//MARK: - VNDocumentCameraViewControllerDelegate
+
+extension PreviewViewController: VNDocumentCameraViewControllerDelegate {
+    func documentCameraViewController(_ controller: VNDocumentCameraViewController, didFinishWith scan: VNDocumentCameraScan) {
+
+        var images: [UIImage] = []
+        for pageIndex in 0..<scan.pageCount {
+            let image = scan.imageOfPage(at: pageIndex)
+            images.append(image)
+        }
+        convertImagesToPDF(images)
+        dismiss(animated: true)
+    }
+
+    func documentCameraViewControllerDidCancel(_ controller: VNDocumentCameraViewController) {
+        dismiss(animated: true)
+    }
+
+    func documentCameraViewController(_ controller: VNDocumentCameraViewController, didFailWithError error: Error) {
+        dismiss(animated: true)
+    }
+}
+
+//MARK: - PHPickerViewControllerDelegate
+extension PreviewViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true)
+        var selectedImages: [UIImage] = []
+
+        let itemProviders = results.map { $0.itemProvider }
+        let group = DispatchGroup()
+
+        for item in itemProviders {
+            group.enter()
+            if item.canLoadObject(ofClass: UIImage.self) {
+                item.loadObject(ofClass: UIImage.self) { (object, error) in
+                    if let image = object as? UIImage {
+                        selectedImages.append(image)
+                    }
+                    group.leave()
+                }
+            } else {
+                group.leave()
+            }
+        }
+
+        group.notify(queue: .main) {
+            self.convertImagesToPDF(selectedImages)
+        }
+    }
+}
+
+//MARK: - UIDocumentPickerDelegate
+extension PreviewViewController: UIDocumentPickerDelegate {
+
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        guard let sourceUrl = urls.first else { return }
+
+        guard let pdfFromFile = PDFDocument(url: sourceUrl),
+              let pdfDoc1 = pdfView.document else {return}
+
+        presenter?.needSplitPDF(title: file.title, pdf1: pdfDoc1, pdf2: pdfFromFile)
     }
 }

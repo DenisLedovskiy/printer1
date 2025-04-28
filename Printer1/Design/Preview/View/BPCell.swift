@@ -29,7 +29,7 @@ final class BPCell: GeneralCollectionCell {
 
     override class var size: CGSize {
         let width: CGFloat = (screeneWidth - 20)/4
-        let height: CGFloat = isEnLocal ? 56 : 72
+        let height: CGFloat = isEnLocal ? 56 : 82
         return CGSize(
             width: width,
             height: height

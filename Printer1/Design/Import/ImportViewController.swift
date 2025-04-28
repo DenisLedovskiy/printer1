@@ -89,6 +89,7 @@ final class ImportViewController: GeneralViewController {
         customInit()
         presenter?.viewDidLoad(withView: self)
         applySnapshot()
+        UserInfoManager.isNotFirstEnter = true
     }
 }
 
@@ -184,7 +185,7 @@ private extension ImportViewController {
         group.interItemSpacing = .fixed(16)
 
         let section = NSCollectionLayoutSection(group: group)
-        section.interGroupSpacing = 20
+        section.interGroupSpacing = isSmallPhone ? 10 : 20
         section.contentInsets = .init(top: 0,
                                       leading: 22,
                                       bottom: 0,
@@ -208,8 +209,6 @@ extension ImportViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
-//        presenter?.needShowDocument(indexPath.row)
-
         switch indexPath.row {
         case 0: scanCamera()
         case 1: checkPhotoLibraryPermission()
@@ -230,24 +229,24 @@ private extension ImportViewController {
         view.addSubview(collectionView)
 
         titleLabel.snp.makeConstraints({
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(isSmallPhone ? 24 : 36)
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(isSmallPhone ? 16 : 36)
             $0.leading.trailing.equalToSuperview().inset(22)
         })
 
         top.snp.makeConstraints({
-            $0.top.equalTo(titleLabel.snp.bottom).offset(15)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(isSmallPhone ? 10 : 15)
             $0.leading.trailing.equalToSuperview().inset(22)
             $0.height.equalTo(147)
         })
 
         importLabel.snp.makeConstraints({
             $0.leading.trailing.equalToSuperview().inset(22)
-            $0.top.equalTo(top.snp.bottom).offset(22)
+            $0.top.equalTo(top.snp.bottom).offset(isSmallPhone ? 12 : 22)
         })
 
         collectionView.snp.makeConstraints({
             $0.leading.trailing.equalToSuperview()
-            $0.top.equalTo(importLabel.snp.bottom).offset(12)
+            $0.top.equalTo(importLabel.snp.bottom).offset(isSmallPhone ? 6 : 12)
             $0.bottom.equalToSuperview()
         })
     }
@@ -386,15 +385,11 @@ extension ImportViewController: UIDocumentPickerDelegate {
             try FileManager.default.copyItem(at: sourceUrl, to: destinationUrl)
             print("Файл успешно сохранен по пути: \(destinationUrl.path)")
 
-
-            //TODO: - save in core data
-//            presenter?.addPDF(uniqueFileName)
-
             let fileNameWithoutExtension = uniqueFileName.components(separatedBy: ".").first ?? ""
             let extensionString = uniqueFileName.components(separatedBy: ".").last ?? ""
             let file = FileModel(id: UUID(),
                                  title: fileNameWithoutExtension,
-                                 type: extensionString,
+                                 type: extensionString.lowercased(),
                                  date: Date())
             presenter?.needShowPreview(file)
         } catch {

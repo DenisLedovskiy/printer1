@@ -108,7 +108,7 @@ private extension ImportTop {
         cellDesc.snp.makeConstraints({
             $0.top.equalTo(bannerTitle.snp.bottom).offset(2)
             $0.leading.equalToSuperview().offset(34)
-            $0.trailing.equalToSuperview().inset(200)
+            $0.trailing.equalToSuperview().inset(180)
         })
 
         dotView.snp.makeConstraints({
@@ -121,9 +121,19 @@ private extension ImportTop {
         selectButton.snp.makeConstraints({
             $0.width.equalTo(width)
             $0.height.equalTo(35)
-            $0.bottom.equalToSuperview().inset(18)
+            $0.bottom.equalToSuperview().inset(isSmallPhone ? 10 : 18)
             $0.leading.equalToSuperview().offset(20)
         })
+
+        if !isEnLocal {
+            selectButton.snp.updateConstraints({
+                $0.bottom.equalToSuperview().inset(10)
+            })
+
+            bannerTitle.snp.updateConstraints({
+                $0.top.equalToSuperview().offset(12)
+            })
+        }
     }
 
     @objc func tapSelect() {

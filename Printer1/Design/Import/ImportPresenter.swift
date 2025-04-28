@@ -13,6 +13,8 @@ final class ImportPresenter: NSObject {
     private weak var view: ImportPresenterOutputInterface?
     private var router: ImportRouterInterface
 
+    private let printerDS: PrinterCDDataSource = Store.viewContext.printeDS
+
     init(router: ImportRouterInterface) {
         self.router = router
     }
@@ -20,44 +22,15 @@ final class ImportPresenter: NSObject {
 
 // MARK: - Private
 private extension ImportPresenter {
-//    func fetchDocs(_ completion: (() -> Void)? = nil) {
-//        pdfDataSource.fetch { result in
-//            switch result {
-//            case .fail(let error): print("Error: ", error)
-//            case .success:
-//                print("Success fetch Docs. Count = \(self.pdfDataSource.count)")
-//                if self.pdfDataSource.count > 0 {
-//                    let docs = self.pdfDataSource.getAllPDFModels()
-//                    self.allDocs = docs
-//                    self.view?.setDocs(docs)
-//                } else {
-//                    self.allDocs = [PdfMainModel]()
-//                    self.view?.setDocs([PdfMainModel]())
-//                }
-//                completion?()
-//            }
-//        }
-//    }
 
-//    func addNewPDF(_ title: String) {
-//        var nameWithoutPdf = title
-//        if let lastDotIndex = title.lastIndex(of: ".") {
-//            let nameWithoutExtension = title[..<lastDotIndex]
-//            nameWithoutPdf = String(nameWithoutExtension)
-//        }
-//        let model = PdfMainModel(id: UUID(),
-//                                 name: nameWithoutPdf,
-//                                 date: Date(),
-//                                 isEdited: false)
-//
-//        Store.viewContext.addPDF(item: model) { result in
-//            switch result {
-//            case .fail(let error): print("Error: ", error)
-//            case .success: print("Success add pdf in CD with name - \(title)")
-//                self.fetchDocs()
-//            }
-//        }
-//    }
+    func saveFileInCD(_ file: FileModel) {
+        Store.viewContext.addFile(item: file) { result in
+            switch result {
+            case .fail(let error): print("Error: ", error)
+            case .success: print("Success save file in CD")
+            }
+        }
+    }
 
     func saveAsPDF(images: [UIImage]) {
         let document = images.createPDF()
@@ -67,16 +40,20 @@ private extension ImportPresenter {
         guard let fileURL = documentsDirectory?.appendingPathComponent("\(fileName).pdf") else {return}
 
         document.write(to: fileURL)
-        //TODO: - Сделать созрание в кор дату
-//        self.addNewPDF(fileName)
+
+        let file = FileModel(id: UUID(),
+                             title: fileName,
+                             type: "pdf",
+                             date: Date())
+        saveFileInCD(file)
+        router.routeDocPreview(file: file)
     }
 
-    //TODO: - Сделать создание имени не по дате
     func getFileNameForPDF() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yy HH:mm"
         let currentDateTimeString = dateFormatter.string(from: Date())
-        return "\(currentDateTimeString)"
+        return "PDF \(currentDateTimeString)"
     }
 }
 
@@ -84,6 +61,7 @@ private extension ImportPresenter {
 
 extension ImportPresenter: ImportPresenterInterface {
     func needShowPreview(_ file: FileModel) {
+        saveFileInCD(file)
         router.routeDocPreview(file: file)
     }
     

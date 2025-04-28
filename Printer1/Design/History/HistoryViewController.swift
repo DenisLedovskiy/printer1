@@ -3,7 +3,8 @@ import WebKit
 import QuickLook
 
 protocol HistoryPresenterOutputInterface: AnyObject {
-
+    func setFiles(_ files: [HistoryCellModel])
+    func getSelectFile(_ file: FileModel)
 }
 
 final class HistoryViewController: GeneralViewController, QLPreviewControllerDataSource {
@@ -16,6 +17,12 @@ final class HistoryViewController: GeneralViewController, QLPreviewControllerDat
 
     var fileURL: URL!
 
+    private var selectedIndex = 0
+    private var selectFile = FileModel(id: UUID(),
+                                       title: "",
+                                       type: "",
+                                       date: Date())
+
     // MARK: - Value Types
     typealias DataSource = UICollectionViewDiffableDataSource<HistorySection, HistoryCellModel>
     typealias Snapshot = NSDiffableDataSourceSnapshot<HistorySection, HistoryCellModel>
@@ -23,6 +30,13 @@ final class HistoryViewController: GeneralViewController, QLPreviewControllerDat
     //MARK: - UI Propery
 
     //MARK: - UI
+    private lazy var webView: WKWebView = {
+        let view = WKWebView()
+        view.backgroundColor = .clear
+        view.isHidden = true
+        return view
+    }()
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = perevod("History")
@@ -49,6 +63,7 @@ final class HistoryViewController: GeneralViewController, QLPreviewControllerDat
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = .clear
         collectionView.delegate = self
+        collectionView.contentInset.bottom = 20
         HistoryCell.register(collectionView)
         return collectionView
     }()
@@ -70,19 +85,13 @@ final class HistoryViewController: GeneralViewController, QLPreviewControllerDat
         super.viewWillAppear(animated)
         hideTabBar(false)
         hideNavBar(true)
+        presenter?.willAppear()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         customInit()
         presenter?.viewDidLoad(withView: self)
-
-        let items = [HistoryCellModel(date: "10/04/2025 12:00", title: "dsd asdasfdf asfasf asf a", type: "DOC"),
-                     HistoryCellModel(date: "10/04/2025 12:00", title: "dsd asdasfdf asfasf asf a", type: "DOcX"),
-                     HistoryCellModel(date: "10/04/2025 12:00", title: "dsd asdasfdf asfasf asf a", type: "xlxs"),
-                     HistoryCellModel(date: "10/04/2025 12:00", title: "dsd asdasfdf asfasf asf a", type: "pdf")]
-        let sections = HistorySection.makeSection(items)
-        self.setSections(sections)
     }
 
 
@@ -101,7 +110,22 @@ final class HistoryViewController: GeneralViewController, QLPreviewControllerDat
 // MARK: - HistoryPresenterOutputInterface
 
 extension HistoryViewController: HistoryPresenterOutputInterface {
-
+    func getSelectFile(_ file: FileModel) {
+        selectFile = file
+    }
+    
+    func setFiles(_ files: [HistoryCellModel]) {
+        DispatchQueue.main.async { [self] in
+            if files.isEmpty {
+                emptyView.isHidden = false
+                collectionView.isHidden = true
+            } else {
+                emptyView.isHidden = true
+                collectionView.isHidden = false
+                setSections(HistorySection.makeSection(files))
+            }
+        }
+    }
 }
 
 // MARK: - Action
@@ -126,25 +150,25 @@ private extension HistoryViewController {
                                       style: .default,
                                       handler: { (UIAlertAction) in
             UIImpactFeedbackGenerator(style: .light).impactOccurred()
-
+            self.presenter?.selectView(self.selectedIndex)
         }))
         alert.addAction(UIAlertAction(title: perevod("Share"),
                                       style: .default,
                                       handler:{ (UIAlertAction) in
             UIImpactFeedbackGenerator(style: .light).impactOccurred()
-
+            self.presenter?.selectShare(self.selectedIndex)
         }))
         alert.addAction(UIAlertAction(title: perevod("Print"),
                                       style: .default,
                                       handler:{ (UIAlertAction)in
             UIImpactFeedbackGenerator(style: .light).impactOccurred()
-
+            self.print()
         }))
         alert.addAction(UIAlertAction(title: perevod("Delete"),
                                       style: .destructive,
                                       handler:{ (UIAlertAction)in
             UIImpactFeedbackGenerator(style: .light).impactOccurred()
-
+            self.delete()
         }))
 
         alert.addAction(UIAlertAction(title: perevod("Cancel"),
@@ -155,6 +179,76 @@ private extension HistoryViewController {
             self.present(alert, animated: true, completion: { })
         }
     }
+
+    func delete() {
+        presenter?.selectDelete(selectedIndex)
+    }
+
+    func routeInApp() {
+        let vc = InAppInit.createViewController()
+        vc.modalPresentationStyle = .overFullScreen
+        self.present(vc, animated: true)
+    }
+
+    func print() {
+        guard MoneyManager.shared.isPremium else {
+            routeInApp()
+            return
+        }
+
+        if selectFile.type == "" {
+            let printController = UIPrintInteractionController.shared
+            printController.delegate = self
+            let renderer = UIPrintPageRenderer()
+            renderer.addPrintFormatter(webView.viewPrintFormatter(), startingAtPageAt: 0)
+
+            printController.printPageRenderer = renderer
+            printController.printInfo = UIPrintInfo(dictionary: nil)
+            printController.printInfo?.outputType = .general
+            printController.present(animated: true, completionHandler: nil)
+        } else {
+            let fileName = "\(selectFile.title).\(selectFile.type)"
+            let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+            guard let fileURL = documentsDirectory?.appendingPathComponent(fileName) else {return}
+
+            let printController = UIPrintInteractionController.shared
+            printController.delegate = self
+
+            let file = selectFile
+            if file.type == "pdf" {
+                printController.printingItem = fileURL
+            } else {
+                let renderer = UIPrintPageRenderer()
+                renderer.addPrintFormatter(webView.viewPrintFormatter(), startingAtPageAt: 0)
+                printController.printPageRenderer = renderer
+            }
+            printController.printInfo = UIPrintInfo(dictionary: nil)
+            printController.printInfo?.outputType = .general
+            printController.present(animated: true, completionHandler: nil)
+        }
+    }
+
+    func setWebView() {
+        if selectFile.type == "" {
+            let myURL = URL(string: selectFile.title)
+            if let url = myURL {
+                let request = URLRequest(url: url)
+                webView.load(request)
+            }
+        } else if selectFile.type != "pdf" {
+            let fileName = "\(selectFile.title).\(selectFile.type)"
+            let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+            guard let fileURL = documentsDirectory?.appendingPathComponent(fileName) else {return}
+            let request = URLRequest(url: fileURL)
+            webView.load(request)
+        }
+
+    }
+}
+
+//MARK: - UIPrintInteractionControllerDelegate
+extension HistoryViewController: UIPrintInteractionControllerDelegate {
+
 }
 
 
@@ -226,61 +320,10 @@ extension HistoryViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
-//        presenter?.needShowDocument(indexPath.row)
-//        presentSheet()
-
-//        samplePP pptx
-//        docdoc docx
-// samplePDF pdf
-
-        let vc = PreviewInit.createViewController(file: FileModel(id: UUID(),
-                                                                  title: "NDA",
-                                                                  type: "docx",
-                                                                  date: Date()))
-        navigationController?.pushViewController(vc, animated: true)
-
-//        if let fileUrl = Bundle.main.url(forResource: "samplePP", withExtension: "pptx") {
-//            print("URL файла: \(fileUrl.absoluteString)")
-//
-//
-//            let interactionController = UIDocumentInteractionController(url: fileUrl)
-//            interactionController.delegate = self
-//            interactionController.presentPreview(animated: true)
-//            interactionController.presentOptionsMenu(from: CGRect.zero, in: self.view, animated: true)
-
-//            interactionController.presentOpenInMenu(from: CGRect.zero, in: self.view, animated: true)
-
-
-//            fileURL = fileUrl
-//            let previewController = QLPreviewController()
-//            previewController.dataSource = self
-//            present(previewController, animated: true, completion: nil)
-//        } else {
-//            print("Файл 'samplePP.pptx' не найден")
-//        }
-
-
-//        if let path = Bundle.main.path(forResource: "samplePP", ofType: "pptx") {
-//            print("Путь к файлу: \(path)")
-
-//            let webView = WKWebView(frame: view.bounds)
-//            let url = URL(fileURLWithPath: path)
-//            let request = URLRequest(url: url)
-//            webView.load(request)
-//            view.addSubview(webView)
-
-
-//            if let url = URL(string: path) {
-//                fileURL = url
-//                let previewController = QLPreviewController()
-//                previewController.dataSource = self
-//                present(previewController, animated: true, completion: nil)
-//
-//            }
-
-//        } else {
-//            print("Файл 'import.xls' не найден.")
-//        }
+        selectedIndex = indexPath.row
+        presenter?.selectFile(indexPath.row)
+        presentSheet()
+        setWebView()
     }
 }
 
@@ -288,6 +331,7 @@ extension HistoryViewController: UICollectionViewDelegate {
 
 private extension HistoryViewController {
     func customInit() {
+        view.addSubview(webView)
         view.addSubview(titleLabel)
         view.addSubview(emptyView)
         view.addSubview(collectionView)
@@ -307,6 +351,10 @@ private extension HistoryViewController {
             $0.leading.trailing.equalToSuperview()
             $0.top.equalTo(titleLabel.snp.bottom).offset(22)
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+        })
+
+        webView.snp.makeConstraints({
+            $0.edges.equalToSuperview()
         })
     }
 }

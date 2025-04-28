@@ -12,7 +12,7 @@ final class FAQCell: GeneralCollectionCell {
     private lazy var cellLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .natural
-        label.numberOfLines = 2
+        label.numberOfLines = 0
         label.font = .dmSans(.heavy, size: 18)
         label.textColor = .prBlack
         return label
@@ -23,7 +23,7 @@ final class FAQCell: GeneralCollectionCell {
         label.font = .dmSans(.semibold, size: 16)
         label.textColor = .subtitleGray
         label.textAlignment = .center
-        label.numberOfLines = 2
+        label.numberOfLines = 0
         return label
     }()
 
@@ -77,7 +77,7 @@ final class FAQCell: GeneralCollectionCell {
 extension FAQCell {
 
     func setupConstraints() {
-        cellLabel.snp.makeConstraints({
+        cellLabel.snp.remakeConstraints({
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.top.equalToSuperview().offset(20)
         })
@@ -87,7 +87,7 @@ extension FAQCell {
         var labels = [UILabel]()
         for index in 0...texts.count-1 {
             let label = UILabel()
-            label.font = .dmSans(.semibold, size: 14)
+            label.font = .dmSans(.semibold, size: 16)
             label.textColor = .prBlack
             label.textAlignment = .natural
             label.numberOfLines = 0
@@ -95,7 +95,7 @@ extension FAQCell {
             addSubview(label)
 
             let number = UILabel()
-            number.font = .dmSans(.semibold, size: 14)
+            number.font = .dmSans(.semibold, size: 16)
             number.textColor = .prBlack
             number.textAlignment = .natural
             number.numberOfLines = 1
@@ -139,9 +139,9 @@ extension FAQCell {
 
         addSubview(label)
 
-        let style1 = [NSAttributedString.Key.font : UIFont.dmSans(.semibold, size: 14),
+        let style1 = [NSAttributedString.Key.font : UIFont.dmSans(.semibold, size: 16),
                       NSAttributedString.Key.foregroundColor : UIColor.prBlack]
-        let style2 = [NSAttributedString.Key.font : UIFont.dmSans(.semibold, size: 14),
+        let style2 = [NSAttributedString.Key.font : UIFont.dmSans(.semibold, size: 16),
                       NSAttributedString.Key.foregroundColor : UIColor.link]
 
 
@@ -174,7 +174,7 @@ extension FAQCell {
 
     func setUsual(text: String) {
         let label = UILabel()
-        label.font = .dmSans(.semibold, size: 14)
+        label.font = .dmSans(.semibold, size: 16)
         label.textColor = .prBlack
         label.textAlignment = .natural
         label.numberOfLines = 0
@@ -183,7 +183,7 @@ extension FAQCell {
         addSubview(label)
 
         label.snp.makeConstraints({
-            $0.leading.equalToSuperview().offset(40)
+            $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().inset(20)
             $0.top.equalTo(cellLabel.snp.bottom).offset(6)
             $0.bottom.equalToSuperview().inset(20)

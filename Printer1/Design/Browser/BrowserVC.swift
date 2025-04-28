@@ -9,22 +9,23 @@ final class BrowserVC: GeneralViewController {
 
     weak var delegate: BrowserVCDelegate?
 
+    private let printerDS: PrinterCDDataSource = Store.viewContext.printeDS
+
+    private let activityIndicator = UIActivityIndicatorView(style: .large)
+
     private var keyboardHeight: CGFloat? {
         didSet {
             updateField()
         }
     }
 
+    private var isFirstPage = true
+
     //MARK: - UI
 
     private lazy var webView: WKWebView = {
         let view = WKWebView()
         let configuration = WKWebViewConfiguration()
-        let myURL = URL(string: "https://www.google.com/")
-        if let url = myURL {
-            let request = URLRequest(url: url)
-            view.load(request)
-        }
         view.backgroundColor = .clear
         view.navigationDelegate = self
         return view
@@ -143,7 +144,6 @@ final class BrowserVC: GeneralViewController {
         textField.textColor = .prBlack
         textField.font = .dmSans(.heavy, size: 16)
         textField.textAlignment = .natural
-        textField.text = "https://www.google.com/"
         return textField
     }()
 
@@ -164,9 +164,30 @@ final class BrowserVC: GeneralViewController {
         super.viewDidDisappear(animated)
         NotificationCenter.default.removeObserver(self)
     }
+
+    //MARK: - Init
+    init(url: String = "https://www.google.com/") {
+        super.init(nibName: nil, bundle: nil)
+        textField.text = url
+        let myURL = URL(string: url)
+        if let urlLink = myURL {
+            let request = URLRequest(url: urlLink)
+            webView.load(request)
+        }
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
 }
 //MARK: - Private
 private extension BrowserVC {
+
+    func routeInApp() {
+        let vc = InAppInit.createViewController()
+        vc.modalPresentationStyle = .overFullScreen
+        self.present(vc, animated: true)
+    }
 
     @objc func tapBack() {
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
@@ -178,9 +199,16 @@ private extension BrowserVC {
     }
 
     @objc func tapPrint() {
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        guard MoneyManager.shared.isPremium else {
+            routeInApp()
+            return
+        }
         if webView.isLoading {
             return
         }
+        
+        saveFileInCD()
 
         let printController = UIPrintInteractionController.shared
         printController.delegate = self
@@ -193,7 +221,21 @@ private extension BrowserVC {
         printController.present(animated: true, completionHandler: nil)
     }
 
+    func saveFileInCD() {
+        let file = FileModel(id: UUID(),
+                             title: webView.url?.absoluteString ?? "web",
+                             type: "",
+                             date: Date())
+        Store.viewContext.addFile(item: file) { result in
+            switch result {
+            case .fail(let error): print("Error: ", error)
+            case .success: print("Success save file in CD")
+            }
+        }
+    }
+
     @objc func tapBrBack() {
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
         if webView.canGoBack {
             webView.goBack()
             frwdBr.setImage(.brNavForwdOn, for: .normal)
@@ -202,6 +244,7 @@ private extension BrowserVC {
     }
 
     @objc func tapBrFrwd() {
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
         if webView.canGoForward {
             webView.goForward()
             backBr.setImage(.brNavBackOn, for: .normal)
@@ -210,10 +253,12 @@ private extension BrowserVC {
     }
 
     @objc func tapRefresh() {
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
         webView.reload()
     }
 
     @objc func tapSearch() {
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
         view.endEditing(true)
         let myURL = URL(string: textField.text ?? "")
         if let url = myURL {
@@ -247,6 +292,19 @@ extension BrowserVC: WKNavigationDelegate {
         checkButtons()
         textField.text = webView.url?.absoluteString
         view.endEditing(true)
+        activityIndicator.stopAnimating()
+    }
+
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        if isFirstPage {
+            isFirstPage = false
+            activityIndicator.startAnimating()
+        }
+    }
+
+
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        activityIndicator.stopAnimating()
     }
 }
 
@@ -298,8 +356,14 @@ extension BrowserVC {
 //MARK: - UI
 private extension BrowserVC {
 
-    func congifureConstraits() {
+    func setActivity() {
+        activityIndicator.center = self.view.center
+        activityIndicator.color = .black
+        activityIndicator.hidesWhenStopped = true
+        self.view.addSubview(activityIndicator)
+    }
 
+    func congifureConstraits() {
         view.addSubview(webView)
         view.addSubview(topView)
         topView.addSubview(backBtn)
@@ -314,10 +378,12 @@ private extension BrowserVC {
         fieldBack.addSubview(searchBtn)
         fieldBack.addSubview(textField)
 
+        setActivity()
+
         topView.snp.makeConstraints({
             $0.top.equalToSuperview()
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(140)
+            $0.height.equalTo(isSmallPhone ? 110 : 140)
         })
 
         titleLabel.snp.makeConstraints({
@@ -334,7 +400,7 @@ private extension BrowserVC {
         bottomView.snp.makeConstraints({
             $0.bottom.equalToSuperview()
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(112)
+            $0.height.equalTo(isSmallPhone ? 100 : 112)
         })
 
         let widthHalf = (((screeneWidth/2) - 12)/2)/2 - 12

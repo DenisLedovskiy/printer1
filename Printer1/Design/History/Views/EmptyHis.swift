@@ -2,17 +2,6 @@ import UIKit
 
 final class EmptyHis: UIView {
 
-//    let iconWidth: CGFloat = switch phoneSize {
-//    case .big: 160
-//    case .medium: 140
-//    case .small: 112
-//    }
-//    let iconHeight: CGFloat = switch phoneSize {
-//    case .big: 126
-//    case .medium: 106
-//    case .small: 84
-//    }
-
     var didAddSelect: (() -> ())?
 
     private let iconView: UIImageView = {
@@ -53,8 +42,8 @@ final class EmptyHis: UIView {
 
         button.setCornerRadius(20)
 
-        button.layer.shadowRadius = 18
-        button.layer.shadowOpacity = 1
+        button.layer.shadowRadius = 6
+        button.layer.shadowOpacity = 0.9
         button.layer.shadowColor = UIColor.gradient1.withAlphaComponent(0.29).cgColor
         button.layer.shadowOffset = CGSize(width: 0, height: 11)
         button.clipsToBounds = false
@@ -75,6 +64,7 @@ final class EmptyHis: UIView {
 private extension EmptyHis {
 
     @objc func tapAdd() {
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
         didAddSelect?()
     }
 
@@ -93,14 +83,14 @@ private extension EmptyHis {
         addSubview(addButton)
 
         iconView.snp.makeConstraints({
-            $0.top.equalToSuperview().offset(102)
+            $0.top.equalToSuperview().offset(isSmallPhone ? 30 : 82)
             $0.centerX.equalToSuperview()
             $0.width.equalTo(282)
-            $0.height.equalTo(203)
+            $0.height.equalTo(253)
         })
 
         titleLabel.snp.makeConstraints({
-            $0.top.equalTo(iconView.snp.bottom).offset(23)
+            $0.top.equalTo(iconView.snp.bottom).offset(-10)
             $0.leading.equalToSuperview().offset(28)
             $0.trailing.equalToSuperview().inset(28)
         })

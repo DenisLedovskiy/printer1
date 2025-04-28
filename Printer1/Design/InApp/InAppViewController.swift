@@ -9,25 +9,25 @@ final class InAppViewController: GeneralViewController {
     private var presenter: InAppPresenterInterface?
     private var router: InAppRouterInterface?
 
-    private let appHubManager = AppHudManager.shared
+    private let moneyManager = MoneyManager.shared
 
     // MARK: - UI Propery
     private lazy var bottomButtonsHeight: Double = 20
 
     private var imageTopInset: Double = switch phoneSize {
-    case .small: 140
+    case .small: 130
     case .medium: 160
-    case .big: 180
+    case .big: 200
     }
 
     private var imageHeight: Double = switch phoneSize {
-    case .small: screeneWidth * 1.18575064
+    case .small: screeneWidth * 1.0
     case .medium: 466
-    case .big: 496
+    case .big: screeneWidth * 1.18
     }
 
     private var titleTopInset: Double = switch phoneSize {
-    case .small: 6
+    case .small: 4
     case .medium: 30
     case .big: 50
     }
@@ -183,7 +183,7 @@ final class InAppViewController: GeneralViewController {
         hideTabBar(true)
         hideNavBar(true)
 
-        appHubManager.delegate = self
+        moneyManager.delegate = self
     }
 }
 
@@ -198,10 +198,9 @@ private extension InAppViewController {
 
     @objc func tapContinue() {
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
-        guard let appHubModel = appHubManager.subscription else { return }
+        guard let appHubModel = moneyManager.subscription else { return }
         startSpinner()
-        appHubManager.startPurchase(appHubModel)
-
+        moneyManager.startPurchase(appHubModel)
     }
 
     @objc func selectPP() {
@@ -212,7 +211,7 @@ private extension InAppViewController {
     @objc func selectRestore() {
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
         startSpinner()
-        appHubManager.restore()
+        moneyManager.restore()
     }
 
     @objc func selectTerm() {
@@ -231,12 +230,10 @@ private extension InAppViewController {
 
 private extension InAppViewController {
     func customInit() {
-        //TODO: - сделать норм цену
-        let price = appHubManager.getPrice(.noTrial)
-        let duration = appHubManager.getDuration(.noTrial)
+        let price = moneyManager.getPrice()
+        let duration = moneyManager.getDuration()
 
-        subLabel.text = String(format: perevod("Unlimited prints, faster processing, storage for your documents for"), " \(price)/\(duration)")
-
+        subLabel.text = String(format: perevod("Unlimited prints, faster processing, storage for your documents for %@"), "\(price)\(duration)")
 
         view.addSubview(backImageView)
         view.addSubview(titleLabel)
@@ -254,7 +251,7 @@ private extension InAppViewController {
         })
 
         subLabel.snp.makeConstraints({
-            $0.top.equalTo(titleLabel.snp.bottom).offset(isSmallPhone ? 4 : 8)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(isSmallPhone ? 2 : 8)
             $0.leading.trailing.equalToSuperview().inset(40)
         })
 
@@ -265,16 +262,16 @@ private extension InAppViewController {
         })
 
         continueButton.snp.makeConstraints({
-            $0.top.equalTo(backImageView.snp.bottom)
+            $0.top.equalTo(backImageView.snp.bottom).offset(0)
             $0.height.equalTo(continueButton.height)
             $0.leading.trailing.equalToSuperview().inset(22)
         })
 
-        let space: CGFloat = isEnLocal ? 80 : 10
+        let space: CGFloat = isEnLocal ? 80 : 6
         let bottomButtonWidth = (screeneWidth - space)/4
         restoreButton.snp.makeConstraints({
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-bottomButtonsInset)
-            $0.leading.equalToSuperview().offset(isSmallPhone ? ((space/2) + 6) : space/2)
+            $0.leading.equalToSuperview().offset(space/2)
             $0.height.equalTo(bottomButtonsHeight)
         })
 
@@ -298,7 +295,7 @@ private extension InAppViewController {
 
         if currentLocal.contains("de") {
             restoreButton.snp.makeConstraints({
-                $0.width.equalTo(bottomButtonWidth + 10)
+                $0.width.equalTo(bottomButtonWidth + 12)
             })
             termButton.snp.makeConstraints({
                 $0.width.equalTo(bottomButtonWidth)
@@ -341,11 +338,7 @@ private extension InAppViewController {
 
 // MARK: - AppHubManagerDelegate
 
-extension InAppViewController: AppHudManagerDelegate {
-    func finishLoadPaywall() {
-
-    }
-
+extension InAppViewController: MoneyManagerDelegateDelegate {
     func purchasesWasEnded(success: Bool?, messageError: String) {
         endSpinner()
         guard let success = success else {
