@@ -27,9 +27,9 @@ final class InAppViewController: GeneralViewController {
     }
 
     private var titleTopInset: Double = switch phoneSize {
-    case .small: 4
-    case .medium: 30
-    case .big: 50
+    case .small: isEnLocal ? 30 : 4
+    case .medium: isEnLocal ? 60 : 30
+    case .big: isEnLocal ? 80 : 50
     }
 
     private var bottomContinueButtonsInset: Double = switch phoneSize {
@@ -76,12 +76,11 @@ final class InAppViewController: GeneralViewController {
 
     private let subLabel: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 3
+        label.numberOfLines = 2
         label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
         label.textColor = .subtitleGray
         label.font = .dmSans(.semibold, size: 16)
-
         return label
     }()
 
@@ -252,7 +251,7 @@ private extension InAppViewController {
 
         subLabel.snp.makeConstraints({
             $0.top.equalTo(titleLabel.snp.bottom).offset(isSmallPhone ? 2 : 8)
-            $0.leading.trailing.equalToSuperview().inset(40)
+            $0.leading.trailing.equalToSuperview().inset(phoneSize == .big ? 30 : 20)
         })
 
         backImageView.snp.makeConstraints({

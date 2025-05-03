@@ -22,9 +22,9 @@ final class WelcomeViewController: GeneralViewController {
     }
 
     private var titleTopInset: Double = switch phoneSize {
-    case .small: 10
-    case .medium: 30
-    case .big: 50
+    case .small: isEnLocal ? 30 : 10
+    case .medium: isEnLocal ? 60 : 30
+    case .big: isEnLocal ? 80 : 50
     }
 
     private var bottomContinueButtonsInset: Double = switch phoneSize {

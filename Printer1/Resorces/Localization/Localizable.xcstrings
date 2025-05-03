@@ -3256,61 +3256,61 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Drucken Sie Fotos, Dokumente und Webseiten direkt von Ihrem Telefon aus"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Print photos, documents, and web pages directly from your phone"
+            "value" : "Print photos, documents, and web\npages directly from your phone"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Imprima fotografías, documentos y páginas web directamente desde su teléfono"
           }
         },
         "es-419" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Imprima fotografías, documentos y páginas web directamente desde su teléfono"
           }
         },
         "es-US" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Imprima fotografías, documentos y páginas web directamente desde su teléfono"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Imprimez des photos, des documents et des pages Web directement depuis votre téléphone"
           }
         },
         "fr-CA" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Imprimez des photos, des documents et des pages Web directement depuis votre téléphone"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Stampa foto, documenti e pagine Web direttamente dal tuo telefono"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Imprima fotos, documentos e páginas da web diretamente do seu telefone"
           }
         },
         "pt-PT" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Imprima fotos, documentos e páginas da web diretamente do seu telefone"
           }
         }
@@ -3776,61 +3776,61 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Scannen Sie Ihre Dokumente in hoher Qualität mit nur einem Fingertipp"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Scan your documents in high quality with just one tap"
+            "value" : "Scan your documents in high\nquality with just one tap"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Escanea tus documentos en alta calidad con solo un toque"
           }
         },
         "es-419" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Escanea tus documentos en alta calidad con solo un toque"
           }
         },
         "es-US" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Escanea tus documentos en alta calidad con solo un toque"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Numérisez vos documents en haute qualité en un seul clic"
           }
         },
         "fr-CA" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Numérisez vos documents en haute qualité en un seul clic"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Scansiona i tuoi documenti in alta qualità con un solo tocco"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Digitalize seus documentos em alta qualidade com apenas um toque"
           }
         },
         "pt-PT" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Digitalize seus documentos em alta qualidade com apenas um toque"
           }
         }
@@ -5271,61 +5271,61 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Freuen uns auf Ihr Feedback und arbeiten an Verbesserungen"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "We appreciate your feedback and strive to improve our product"
+            "value" : "We appreciate your feedback and\nstrive to improve our product"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Apreciamos sus comentarios y nos esforzamos por mejorar nuestro producto"
           }
         },
         "es-419" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Apreciamos sus comentarios y nos esforzamos por mejorar nuestro producto"
           }
         },
         "es-US" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Apreciamos sus comentarios y nos esforzamos por mejorar nuestro producto"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Nous apprécions vos commentaires et nous efforçons d'améliorer notre produit"
           }
         },
         "fr-CA" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Nous apprécions vos commentaires et nous efforçons d'améliorer notre produit"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Apprezziamo il tuo feedback e ci impegniamo a migliorare il nostro prodotto"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Agradecemos seu feedback e nos esforçamos para melhorar nosso produto"
           }
         },
         "pt-PT" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Agradecemos seu feedback e nos esforçamos para melhorar nosso produto"
           }
         }
@@ -5401,61 +5401,61 @@
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Ihren Drucker automatisch finden und sofort verbinden"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "We’ll automatically find your printer and connect in seconds"
+            "value" : "We’ll automatically find your\nprinter and connect in seconds"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Encontraremos automáticamente su impresora y nos conectaremos en segundos"
           }
         },
         "es-419" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Encontraremos automáticamente su impresora y nos conectaremos en segundos"
           }
         },
         "es-US" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Encontraremos automáticamente su impresora y nos conectaremos en segundos"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Nous trouverons automatiquement votre imprimante et nous connecterons en quelques secondes"
           }
         },
         "fr-CA" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Nous trouverons automatiquement votre imprimante et nous connecterons en quelques secondes"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Troveremo automaticamente la tua stampante e ci collegheremo in pochi secondi"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Encontraremos sua impressora automaticamente e nos conectaremos em segundos"
           }
         },
         "pt-PT" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Encontraremos sua impressora automaticamente e nos conectaremos em segundos"
           }
         }

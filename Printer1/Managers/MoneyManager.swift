@@ -68,7 +68,14 @@ extension MoneyManager {
 extension MoneyManager {
 
     func getPrice() -> String {
-        return product?.displayPrice ?? ""
+        let currency =  getCurrency()
+        let price = subscription?.skProduct?.price.formattedCurrency() ?? ""
+        return "\(currency)\(price)"
+    }
+
+    func getCurrency() -> String {
+        guard let subscription = subscription else {return ""}
+        return subscription.skProduct?.priceLocale.currencySymbol ?? ""
     }
 
     func getDuration() -> String {
@@ -82,5 +89,19 @@ extension MoneyManager {
         case .some(_): ""
         }
         return durationString
+    }
+}
+
+extension NSDecimalNumber {
+
+    func formattedCurrency() -> String? {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.groupingSeparator = " "
+        formatter.groupingSize = 3
+        formatter.minimumFractionDigits = 2
+        formatter.maximumFractionDigits = 2
+
+        return formatter.string(from: NSNumber(value: Double("\(self)") ?? 0))
     }
 }
