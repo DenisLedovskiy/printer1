@@ -10,9 +10,9 @@ final class WelcomeViewController: GeneralViewController {
     private lazy var bottomButtonsHeight: Double = 20
 
     private var imageTopInset: Double = switch phoneSize {
-    case .small: 120
-    case .medium: 160
-    case .big: 200
+    case .small: 130
+    case .medium: 190
+    case .big: 210
     }
 
     private var imageHeight: Double = switch phoneSize {
@@ -27,11 +27,11 @@ final class WelcomeViewController: GeneralViewController {
     case .big: isEnLocal ? 80 : 50
     }
 
-    private var bottomContinueButtonsInset: Double = switch phoneSize {
-    case .small: 40
-    case .medium: 56
-    case .big: 64
-    }
+//    private var bottomContinueButtonsInset: Double = switch phoneSize {
+//    case .small: 40
+//    case .medium: 56
+//    case .big: 64
+//    }
 
     private var bottomButtonsInset: Double = switch phoneSize {
     case .small: 6

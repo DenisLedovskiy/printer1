@@ -16,12 +16,12 @@ final class InAppViewController: GeneralViewController {
 
     private var imageTopInset: Double = switch phoneSize {
     case .small: 130
-    case .medium: 160
-    case .big: 200
+    case .medium: 190
+    case .big: 210
     }
 
     private var imageHeight: Double = switch phoneSize {
-    case .small: screeneWidth * 1.0
+    case .small: (screeneWidth-20) * 1.18
     case .medium: 466
     case .big: screeneWidth * 1.18
     }
@@ -256,7 +256,7 @@ private extension InAppViewController {
 
         backImageView.snp.makeConstraints({
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(imageTopInset)
-            $0.leading.trailing.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().inset(isSmallPhone ? 10 : 0)
             $0.height.equalTo(imageHeight)
         })
 
