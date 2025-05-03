@@ -11,7 +11,7 @@ final class WelcomeViewController: GeneralViewController {
 
     private var imageTopInset: Double = switch phoneSize {
     case .small: 130
-    case .medium: 190
+    case .medium: 180
     case .big: 210
     }
 
@@ -22,16 +22,10 @@ final class WelcomeViewController: GeneralViewController {
     }
 
     private var titleTopInset: Double = switch phoneSize {
-    case .small: isEnLocal ? 30 : 10
-    case .medium: isEnLocal ? 60 : 30
-    case .big: isEnLocal ? 80 : 50
+    case .small: isEnLocal ? 40 : 20
+    case .medium: isEnLocal ? 80 : 40
+    case .big: isEnLocal ? 100 : 60
     }
-
-//    private var bottomContinueButtonsInset: Double = switch phoneSize {
-//    case .small: 40
-//    case .medium: 56
-//    case .big: 64
-//    }
 
     private var bottomButtonsInset: Double = switch phoneSize {
     case .small: 6

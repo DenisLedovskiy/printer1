@@ -27,9 +27,9 @@ final class InAppViewController: GeneralViewController {
     }
 
     private var titleTopInset: Double = switch phoneSize {
-    case .small: isEnLocal ? 30 : 4
-    case .medium: isEnLocal ? 60 : 30
-    case .big: isEnLocal ? 80 : 50
+    case .small: isEnLocal ? 40 : 10
+    case .medium: isEnLocal ? 80 : 40
+    case .big: isEnLocal ? 100 : 60
     }
 
     private var bottomContinueButtonsInset: Double = switch phoneSize {
