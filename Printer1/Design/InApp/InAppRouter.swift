@@ -18,7 +18,6 @@ extension InAppRouter: InAppRouterInterface {
             guard let viewController = controller else { return }
             viewController.dismiss(animated: false)
         } else {
-            print("23e234")
             let appLaunch = AppLaunch()
             appLaunch.startMainScene()
         }

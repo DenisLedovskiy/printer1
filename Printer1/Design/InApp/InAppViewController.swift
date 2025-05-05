@@ -343,9 +343,6 @@ extension InAppViewController: MoneyManagerDelegateDelegate {
         guard let success = success else {
             return
         }
-
-        if !success {
-            showErrorAlert(title: perevod("Sorry"), message: messageError)
-        }
+        success ? presenter?.selectClose() : showErrorAlert(title: perevod("Sorry"), message: messageError)
     }
 }
