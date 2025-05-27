@@ -4811,6 +4811,71 @@
         }
       }
     },
+    "Unlimited prints, faster processing, document storage. 3-day free trial, then %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unbegrenztes Drucken, schnellere Verarbeitung, Dokumentenspeicherung. 3 Tage kostenlos testen, danach %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlimited prints, faster processing, document storage. 3-day free trial, then %@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Impresiones ilimitadas, procesamiento más rápido, almacenamiento de sus documentos por %@"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Impresiones ilimitadas, procesamiento más rápido, almacenamiento de sus documentos por %@"
+          }
+        },
+        "es-US" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Impresiones ilimitadas, procesamiento más rápido, almacenamiento de sus documentos por %@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impressions illimitées, traitement plus rapide, stockage de documents. Essai gratuit de 3 jours, puis %@"
+          }
+        },
+        "fr-CA" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impressions illimitées, traitement plus rapide, stockage de documents. Essai gratuit de 3 jours, puis %@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stampe illimitate, elaborazione più rapida, archiviazione dei documenti. Prova gratuita di 3 giorni, poi %@"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impressões ilimitadas, processamento mais rápido, armazenamento de documentos. Teste grátis por 3 dias, depois %@"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impressões ilimitadas, processamento mais rápido, armazenamento de documentos. Teste grátis por 3 dias, depois %@"
+          }
+        }
+      }
+    },
     "Unlimited prints, faster processing, storage for your documents for" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4872,71 +4937,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Impressões ilimitadas, processamento mais rápido, armazenamento para seus documentos por"
-          }
-        }
-      }
-    },
-    "Unlimited prints, faster processing, storage for your documents for %@" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Unbegrenzte Ausdrucke, schnellere Verarbeitung, Speicherung Ihrer Dokumente für %@"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Unlimited prints, faster processing, storage for your documents for %@"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Impresiones ilimitadas, procesamiento más rápido, almacenamiento de sus documentos por %@"
-          }
-        },
-        "es-419" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Impresiones ilimitadas, procesamiento más rápido, almacenamiento de sus documentos por %@"
-          }
-        },
-        "es-US" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Impresiones ilimitadas, procesamiento más rápido, almacenamiento de sus documentos por %@"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Impressions illimitées, traitement plus rapide, stockage de vos documents pour %@"
-          }
-        },
-        "fr-CA" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Impressions illimitées, traitement plus rapide, stockage de vos documents pour %@"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Stampe illimitate, elaborazione più rapida, archiviazione dei tuoi documenti a %@"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Impressões ilimitadas, processamento mais rápido e armazenamento de documentos por %@"
-          }
-        },
-        "pt-PT" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Impressões ilimitadas, processamento mais rápido e armazenamento de documentos por %@"
           }
         }
       }
